@@ -1,0 +1,121 @@
+/* .App {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column-reverse;
+    align-content: flex-start;
+    flex-wrap: wrap;
+  } */
+  
+  .center {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .column {
+    /* width: 300px; */
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+    padding: 8px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 8px;
+    gap: 10px;
+    min-height: 5vh;
+    flex-direction: row;
+    min-width: 200px;
+    width: fit-content;
+    margin-right: 50px;
+  }
+  
+  .row1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    align-content: start;
+    /* gap: 15px; */
+    font-size: 14px;
+    /* flex:1; */
+  }
+  
+  .copy{
+    cursor: pointer;
+    color: grey;
+    font-weight: lighter;
+    font-size: 14px;
+  }
+  
+  /* body {
+    background: #e2e1e0;
+  } */
+  
+  .commentBox {
+    height: max-content;
+    min-height: 50px;
+    font-size: 16px;
+    position: fixed;
+    /* right: 150px; */
+    bottom: 10px;
+    /* left: 0px; */
+    z-index: 10;
+    width: 65%;
+    resize: horizontal;
+    background-color: #e2dede;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12) inset;
+    border: none;
+    border-radius: 20px;
+    padding:15px;
+    color: #1b1a1a;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
+    line-height: 1.4em;
+    transition: background-color 0.2s ease 0s;
+  }
+  
+  
+  .commentButton {
+    background-color: #1976d2;
+    z-index: 10;
+    position: fixed;
+    right: 0px;
+    left:75%;
+    bottom: 10px;
+    color: #fff;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px #0000000b;
+    white-space: nowrap;
+    height: 39px;
+    cursor: pointer;
+    width: 110px;
+  }
+  
+  .commentButton:active {
+    font-size: 13px;
+  }
+  
+  /*  */
+  
+  .chatSection {
+    position: relative;
+    padding-bottom: 100px;
+    overflow-y: auto;
+    /* display: flex;
+    flex-direction: column-reverse; */
+  }
+
+  .heading{
+    background-color: rgb(63, 65, 65);
+    padding: 5px 3px;
+    border-radius: 5px;
+    color: white;
+    /* align-items: center; */
+    align-content: center;
+    
+    height: 10%;
+  }
+  

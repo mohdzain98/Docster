@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap');
+
+ *{
+    font-family: 'Nunito',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    /* transition: .2s linear; */
+}
+
+section{
+    padding: 2rem 9% ;
+}
+.home{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    min-height: 88vh;
+    align-items: center;
+    justify-content: center;
+    background: #2a201c;
+}
+
+.home .content{
+    flex: 1 1 40rem;
+}
+
+.home .content .name{
+    padding-top: -10rem;
+    font-size: 3rem;
+    color: #fff;
+}
+.home .content .title{
+    font-size: 2rem;
+    color: #fff;
+}
+.home .content .description{
+    color: #fff;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1.1rem 0;
+}
+.home .content .title span{
+    color: #d3ad7f;
+}
+.home .image{
+    flex: 1 1 20rem;
+}
+
+.home .image img{
+    width: 100%
+}
+
+.home .content .btn{
+    margin: 0.5rem;
+    display: inline-block;
+    padding: .4rem 2rem;
+    font-size: 1rem;
+    color: #fff;
+    background: #d3ad7f;
+    cursor: pointer;
+}
+
+.home .content .btn:hover{
+    letter-spacing: .2rem;
+}
