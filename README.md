@@ -1,5 +1,5 @@
 # Docster AI
-<h5>Docster AI is an innovative project designed to revolutionize how users interact with documents. By leveraging the power of Large Language Models (LLMs), Docster AI enables intuitive, conversational interactions with documents, making information retrieval and understanding more accessible and efficient.</h5>
+Docster AI is an innovative project designed to revolutionize how users interact with documents. By leveraging the power of Large Language Models (LLMs), Docster AI enables intuitive, conversational interactions with documents, making information retrieval and understanding more accessible and efficient.
 <strong><label>Features:</label></strong>
 <ul>
   <li><strong>Natural Language Processing:</strong> Users can query documents using everyday language, allowing for a seamless and intuitive experience.</li>
