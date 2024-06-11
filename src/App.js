@@ -15,7 +15,7 @@ function App() {
   const [alert, setAlert] = useState(null)
   const [login, setLogin] = useState(true)
   const type = useSelector(state => state.type)
-  const host = 'http://localhost:5001'
+  const host = process.env.REACT_APP_HOST
 
   useEffect(()=>{
     if(localStorage.getItem('token')){

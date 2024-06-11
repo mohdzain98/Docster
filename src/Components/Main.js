@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux'
 const Main = (props) => {  
   const {login} = props.prop
   const type = useSelector(state => state.type)
-  console.log(type)
   return (
     <>
     <section className='home' style={{marginTop:"-80px"}}>
