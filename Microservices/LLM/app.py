@@ -1,3 +1,4 @@
+import math
 from flask import Flask,request,jsonify
 from flask_cors import CORS, cross_origin
 import os
@@ -16,6 +17,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationSummaryBufferMemory
+from Tokens import calTokens
 
 
 app = Flask(__name__)
@@ -119,13 +121,12 @@ def chatpdf():
     req = request.json
     ques = req.get('query')
     y=Init()
-    cToken,db = y.initret()
+    eToken,db = y.initret()
     doc = db.similarity_search(ques)
-    eToken = len(doc[0].page_content.split())*1.334
+    cToken = calTokens(doc)
     chain = load_qa_chain(llm,chain_type='stuff')
     result = chain.run(input_documents=doc,question=ques)
-    gToken = len(result.split())*1.334
-    cToken = cToken*1.334
+    gToken = math.floor(len(result.split())*1.334)
     total = cToken + eToken + gToken
     res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
     return (res)
@@ -135,13 +136,12 @@ def chattxt():
     req = request.json
     ques = req.get('query')
     txt= Initxt()
-    cToken,db = txt.initret()
+    eToken,db = txt.initret()
     doc = db.similarity_search(ques)
-    eToken = len(doc[0].page_content.split())*1.334
+    cToken = calTokens(doc)
     chain = load_qa_chain(llm,chain_type='stuff')
     result = chain.run(input_documents=doc,question=ques)
-    gToken = len(result.split())*1.334
-    cToken = cToken*1.334
+    gToken = math.floor(len(result.split())*1.334)
     total = cToken + eToken + gToken
     res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
     return (res)
@@ -151,13 +151,12 @@ def chatcsv():
     req = request.json
     ques = req.get('query')
     csv = Initcsv()
-    cToken,db = csv.initret()
+    eToken,db = csv.initret()
     doc = db.similarity_search(ques)
-    eToken = len(doc[0].page_content.split())*1.334
+    cToken = calTokens(doc)
     chain = load_qa_chain(llm,chain_type='stuff')
     result = chain.run(input_documents=doc,question=ques)
-    gToken = len(result.split())*1.334
-    cToken = cToken*1.334
+    gToken = math.floor(len(result.split())*1.334)
     total = cToken + eToken + gToken
     res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
     return (res)
@@ -167,15 +166,13 @@ def chatxlsx():
     req = request.json
     ques = req.get('query')
     xl=Initxlsx()
-    cToken,db = xl.initret()
+    eToken,db = xl.initret()
     doc = db.similarity_search(ques)
-    eToken = len(doc[0].page_content.split())*1.334
+    cToken = calTokens(doc)
     chain = load_qa_chain(llm,chain_type='stuff')
     result = chain.run(input_documents=doc,question=ques)
-    gToken = len(result.split())*1.334
-    cToken = cToken*1.334
+    gToken = math.floor(len(result.split())*1.334)
     total = cToken + eToken + gToken
-    print(cToken, eToken, gToken, total)
     res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
     return (res)
 

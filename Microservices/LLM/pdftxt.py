@@ -2,6 +2,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
+from Tokens import calTokens
 
 import fitz  # PyMuPDF
 import pytesseract
@@ -73,5 +74,6 @@ class Embed:
         docs = text_splitter.split_documents(load)
         embedding_function = OpenAIEmbeddings()
         db = Chroma.from_documents(docs, embedding_function)
-        return db
+        eTokens = calTokens(docs)
+        return db,eTokens
 

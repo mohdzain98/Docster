@@ -1,4 +1,4 @@
-from pdftxt import Document, handlePDF, handleTXT, Embed
+from pdftxt import handlePDF, handleTXT, Embed
 from spreadsheet import handleSS
 import pandas as pd
 from sql import sequel
@@ -13,7 +13,7 @@ class Init:
 
     def __init__(self):
         if not hasattr(self, 'initialized'):
-            self.cToken = 0
+            self.eToken = 0
             self.db=""
             self.initialized = True
     
@@ -21,13 +21,12 @@ class Init:
         if(str(file_type) == 'pdf'):
             pdf = handlePDF('tmp/docster_temp.pdf')
             load = pdf.extract_text_from_pdf()
-            cToken = len(load[0].page_content.split())
-            db = Embed.getEmbeddings(load)
-            self.cToken = cToken
+            db,eToken = Embed.getEmbeddings(load)
+            self.eToken = eToken
             self.db=db
 
     def initret(self):
-        return self.cToken,self.db
+        return self.eToken,self.db
     
 
 class Initxt:
@@ -40,7 +39,7 @@ class Initxt:
 
     def __init__(self):
         if not hasattr(self, 'initialized'):
-            self.cToken = 0
+            self.eToken = 0
             self.db=""
             self.initialized = True
     
@@ -48,13 +47,12 @@ class Initxt:
         if(str(file_type) == 'txt'):
             txt = handleTXT('tmp/docster_temp.txt')
             load = txt.extract_text_from_txt()
-            cToken = len(load[0].page_content.split())
-            db = Embed.getEmbeddings(load)
-            self.cToken = cToken
+            db,eToken = Embed.getEmbeddings(load)
+            self.eToken = eToken
             self.db=db
 
     def initret(self):
-        return self.cToken,self.db
+        return self.eToken,self.db
     
 
 class Initcsv:
@@ -67,7 +65,7 @@ class Initcsv:
 
     def __init__(self):
         if not hasattr(self, 'initialized'):
-            self.cToken = 0
+            self.eToken = 0
             self.db=""
             self.initialized = True
     
@@ -75,13 +73,12 @@ class Initcsv:
         if(str(file_type) == 'csv'):
             file = handleSS('tmp/docster_temp.csv')
             csvFile = file.loadData() 
-            cToken = len(csvFile[0].page_content.split())
-            db = file.EmbedSS.getEmbeddings(csvFile)
-            self.cToken = cToken
+            db,eToken = file.EmbedSS.getEmbeddings(csvFile)
+            self.eToken = eToken
             self.db=db
 
     def initret(self):
-        return self.cToken,self.db
+        return self.eToken,self.db
     
 
 
@@ -95,7 +92,7 @@ class Initxlsx:
 
     def __init__(self):
         if not hasattr(self, 'initialized'):
-            self.cToken = 0
+            self.eToken = 0
             self.db=""
             self.initialized = True
     
@@ -104,13 +101,12 @@ class Initxlsx:
             file = handleSS('tmp/docster_temp.xlsx')
             fle = pd.read_excel('tmp/docster_temp.xlsx')
             xlFile = file.handleExcel(fle)
-            cToken = len(xlFile[0].page_content.split())
-            db = file.EmbedSS.getEmbeddings(xlFile)
-            self.cToken = cToken
+            db,eToken = file.EmbedSS.getEmbeddings(xlFile)
+            self.eToken = eToken
             self.db=db
 
     def initret(self):
-        return self.cToken, self.db
+        return self.eToken, self.db
     
 class Initsql:
     _instance = None
