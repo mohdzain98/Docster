@@ -7,7 +7,7 @@ import {actionCreator} from '../State/index'
 
 
 const TaskItem = (props) => {
-    let {taskName, imgSrc, text, bg, ol, btnRef, btnClass,alert, host} = props;
+    let {taskName, imgSrc, text, bg, ol, btnRef, btnClass,alert, host, llm_host} = props;
     const [pdfFile, setPdfFile] = useState(null);
     const [loader,setLoader] = useState("")
     const [disable,setDisable] = useState(null)
@@ -55,7 +55,7 @@ const TaskItem = (props) => {
             const formData = new FormData();
             formData.append('file', pdfFile);
     
-            const response = await fetch(`http://127.0.0.1:5000/uploadfile/${btnRef}`, {
+            const response = await fetch(`${llm_host}/uploadfile/${btnRef}`, {
                 method: "POST",
                 body:formData
             })

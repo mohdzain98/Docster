@@ -5,7 +5,7 @@ import tasks from '../alltask'
 
 
 const Tasks = (props) => {
-    const {host, showAlert} = props.prop
+    const {host, showAlert, llm_host} = props.prop
   return (
     <>
     <div className='container' id='task' style={{marginTop:"50px", marginBottom:"50px"}}>
@@ -27,6 +27,7 @@ const Tasks = (props) => {
                             btnClass={element.btnClass}
                             alert={showAlert}
                             host={host}
+                            llm_host={llm_host}
                         />
                     </div>
                 )

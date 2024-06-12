@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 
 
 const Chatbox = (props) => {
-    const {showAlert} = props.prop
+    const {showAlert, llm_host} = props.prop
     const context = useContext(userContext)
     const {updateToken, checkUser} = context
     const [comment, setComment] = useState("");
@@ -21,6 +21,7 @@ const Chatbox = (props) => {
     const chatEndRef = useRef(null);
     const type = useSelector(state => state.type)
     const location = useLocation()
+    console.log(llm_host)
 
 
     useEffect(()=>{
@@ -64,7 +65,7 @@ const Chatbox = (props) => {
     }
 
     const getAIReply = async (query) =>{
-        const reply = await fetch(`http://127.0.0.1:5000/chat/${type}`,{
+        const reply = await fetch(`${llm_host}/chat/${type}`,{
             method:'POST',
             headers: {
               "Content-Type": "application/json",
