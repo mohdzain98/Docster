@@ -1,6 +1,5 @@
 import sqlite3
 import re
-from langchain_community.utilities import SQLDatabase
 
 class sequel:
     def __init__(self,path):
