@@ -134,8 +134,8 @@ def chatpdf():
 def chattxt():
     req = request.json
     ques = req.get('query')
-    y=Init()
-    cToken,db = y.initret()
+    txt= Initxt()
+    cToken,db = txt.initret()
     doc = db.similarity_search(ques)
     eToken = len(doc[0].page_content.split())*1.334
     chain = load_qa_chain(llm,chain_type='stuff')
