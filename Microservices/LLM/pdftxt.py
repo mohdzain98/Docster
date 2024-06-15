@@ -1,5 +1,5 @@
 from langchain_openai import OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
 from Tokens import calTokens
@@ -73,7 +73,7 @@ class Embed:
         text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size = 500)
         docs = text_splitter.split_documents(load)
         embedding_function = OpenAIEmbeddings()
-        db = Chroma.from_documents(docs, embedding_function)
+        db = FAISS.from_documents(docs, embedding_function)
         eTokens = calTokens(docs)
         return db,eTokens
 

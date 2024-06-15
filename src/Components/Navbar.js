@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import userContext from '../Context/userContext'
 import { useMediaQuery } from 'react-responsive'
+import { useDispatch } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {actionCreator} from '../State/index'
 
 const Navbar = (props) => {
     const {host,Logdin,showAlert} = props.prop
@@ -14,11 +17,15 @@ const Navbar = (props) => {
     let modalClose= useRef(null)
     const [loader,setLoader] = useState("")
     const [mail, setMail] = useState({email:"", text:""})
+    const dispatch = useDispatch()
+    const actions = bindActionCreators(actionCreator, dispatch);
     
     const handleLogout =()=>{
         localStorage.removeItem('token')
         localStorage.removeItem('docster_type')
         localStorage.removeItem('docster_msg')
+        actions.changeFile("default", () => {
+        })
         navigate("/")
         rollNavBack()
         Logdin()
