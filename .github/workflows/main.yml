@@ -25,6 +25,7 @@ jobs:
         passphrase: ${{secrets.SSH_PASSPHRASE}}
         port: 22
         script: |
+          cd docschat/docschat/
           git pull origin main
           git status
-          # npm install --only=prod
+          npm install --only=prod
