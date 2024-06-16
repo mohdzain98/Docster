@@ -27,6 +27,7 @@ jobs:
         script: |
           cd docschat/docschat/
           git init
+          git remote add origin 
           git pull origin main
           git status
           npm install --only=prod
