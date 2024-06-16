@@ -1,4 +1,4 @@
-const reducer = (state=localStorage.getItem("docster_type")?localStorage.getItem("docster_type"):"default",action)=>{
+const reducer = (state=localStorage.getItem("Docschat_type")?localStorage.getItem("Docschat_type"):"default",action)=>{
     if(action.type ==='file'){
         return action.payload
     }

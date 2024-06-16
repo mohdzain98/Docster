@@ -9,6 +9,7 @@ import { useState,useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import UserState from './Context/UserState';
 import Chatbox from './Components/Chatbox'
+import Visitor from './Components/Visitor';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   const type = useSelector(state => state.type)
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
-  console.log(llm_host)
+  console.log(host)
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -56,6 +57,7 @@ function App() {
         <Route exact path='/signup' element={<Signup prop={{host, showAlert, Logdout}}/>}></Route>
         <Route exact path='/chat' element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
         <Route exact path={`/chat/${type}`} element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
+        <Route exact path='/visitors' element={<Visitor/>}></Route>
         {/* <Route exact path='/chat/txt' element={<Chatbox prop={{host, showAlert}}/>}></Route>
         <Route exact path='/chat/csv' element={<Chatbox prop={{host, showAlert}}/>}></Route>
         <Route exact path='/chat/xlsx' element={<Chatbox prop={{host, showAlert}}/>}></Route>

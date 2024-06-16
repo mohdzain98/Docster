@@ -47,10 +47,10 @@ const TaskItem = (props) => {
         setDisable(true)
         const ready = await checkUser(100)
         if(ready){
-            if(localStorage.getItem("docster_msg")){
-                localStorage.removeItem("docster_msg")
+            if(localStorage.getItem("Docschat_msg")){
+                localStorage.removeItem("Docschat_msg")
             }
-            localStorage.setItem("docster_msg",JSON.stringify([{message:`Welcome to the ${btnRef} Chat System`}]))
+            localStorage.setItem("Docschat_msg",JSON.stringify([{message:`Welcome to the ${btnRef} Chat System`}]))
     
             const formData = new FormData();
             formData.append('file', pdfFile);
@@ -64,7 +64,7 @@ const TaskItem = (props) => {
             setDisable(false)
             if(ans.success){
                 actions.changeFile(btnRef, () => {
-                    localStorage.setItem("docster_type",btnRef)
+                    localStorage.setItem("Docschat_type",btnRef)
                     navigate(`/chat/${btnRef}`);
                 })
                 alert(ans.msg,'primary')

@@ -12,7 +12,7 @@ const Main = (props) => {
     <>
     <section className='home' style={{marginTop:"-80px"}}>
         <div className='content' id='con'>
-            <h2 className='name'>Docster</h2>
+            <h2 className='name'>Docschat</h2>
             <h4 className='title'> <span>Your</span> Artificial Intelligence<span> based Chat System with Documents </span></h4>
             <p className='description'>Integrating AI capabilities to facilitate seamless and intelligent conversations, enhancing user experience. Utilizing Natural Language Processing (NLP) to comprehend and respond to user queries contextually. This system also includes document handling features, allowing users to upload, retrieve, and discuss document content within the chat interface.</p>
             {login ? 

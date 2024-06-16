@@ -25,15 +25,15 @@ const Chatbox = (props) => {
 
 
     useEffect(()=>{
-      if(localStorage.getItem("docster_msg")){
-        const getData = JSON.parse(localStorage.getItem("docster_msg"))
+      if(localStorage.getItem("Docschat_msg")){
+        const getData = JSON.parse(localStorage.getItem("Docschat_msg"))
         if (Array.isArray(getData)) {
           setChats(getData);
         } else {
           console.error('Stored data is not an array:', getData);
         }
       }else{
-        localStorage.setItem("docster_msg",JSON.stringify([{message:"Welcome to the Chat System"}]))
+        localStorage.setItem("Docschat_msg",JSON.stringify([{message:"Welcome to the Chat System"}]))
       }
       if(location.pathname !== `/chat/${type}`){
         showAlert("First Upload File","danger")
@@ -55,12 +55,12 @@ const Chatbox = (props) => {
 
     
     const addtolocal =(msg)=>{
-      if(localStorage.getItem("docster_msg")){
-        const sData = JSON.parse(localStorage.getItem("docster_msg"));
+      if(localStorage.getItem("Docschat_msg")){
+        const sData = JSON.parse(localStorage.getItem("Docschat_msg"));
         sData.push({message:msg})
-        localStorage.setItem("docster_msg", JSON.stringify(sData));
+        localStorage.setItem("Docschat_msg", JSON.stringify(sData));
       }else{
-        localStorage.setItem("docster_msg",JSON.stringify([{message:msg}]))
+        localStorage.setItem("Docschat_msg",JSON.stringify([{message:msg}]))
       }
     }
 

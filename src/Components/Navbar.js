@@ -22,8 +22,8 @@ const Navbar = (props) => {
     
     const handleLogout =()=>{
         localStorage.removeItem('token')
-        localStorage.removeItem('docster_type')
-        localStorage.removeItem('docster_msg')
+        localStorage.removeItem('Docschat_type')
+        localStorage.removeItem('Docschat_msg')
         actions.changeFile("default", () => {
         })
         navigate("/")
@@ -104,9 +104,9 @@ const Navbar = (props) => {
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
             <Link class="navbar-brand" to="/">
-                <img src="Docster_transparent.png" alt="" width="30" height="30"/>
+                <img src="Docschat_transparent.png" alt="" width="30" height="30"/>
                 </Link>
-                <Link class="navbar-brand" to="/">Docster</Link>
+                <Link class="navbar-brand" to="/">Docschat</Link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>
                 <span class="navbar-toggler-icon"></span>
                 </button>

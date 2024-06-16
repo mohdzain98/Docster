@@ -21,8 +21,8 @@ const Footer = () => {
     <div class="container">
         <div class="row">
             <div className='col-md-6 col-xs-12'>
-                <p className='text-end d-none d-lg-block'> &copy; 2024 Docster</p>
-                <p className='text-start d-lg-none'>&copy; 2024 Docster</p>
+                <p className='text-end d-none d-lg-block'> &copy; 2024 Docschat</p>
+                <p className='text-start d-lg-none'>&copy; 2024 Docschat</p>
             </div>
             <div className='col-md-6 col-xs-12'><p className='text-start'>Updated on : 10 June, 2024</p></div>
         </div>
