@@ -26,8 +26,6 @@ jobs:
         port: 22
         script: |
           cd docschat/docschat/
-          git init
-          git remote add origin git@github.com:mohdzain98/docschat.git
           git pull origin main
           git status
           npm install --only=prod
