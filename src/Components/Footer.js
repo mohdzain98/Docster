@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -18,15 +19,15 @@ const Footer = () => {
         </div>
     </div>
     <div className='text-white bg-dark pt-2'>
-    <div class="container">
-        <div class="row">
-            <div className='col-md-6 col-xs-12'>
-                <p className='text-end d-none d-lg-block'> &copy; 2024 Docschat</p>
-                <p className='text-start d-lg-none'>&copy; 2024 Docschat</p>
+        <div class="container">
+            <div class="row">
+                <div className='col-md-4 col-xs-4'>
+                    <p className='text-center' > &copy; 2024 Docschat</p>
+                </div>
+                <div className='col-md-4'><p className='text-center'>Developer Info: Mohd Zain <Link to={'https://mohdzain.com'}><i class="fa fa-external-link" aria-hidden="true"></i></Link> </p></div>
+                <div className='col-md-4 col-xs-4'><p className='text-center'>Updated on : 10 June, 2024</p></div>
             </div>
-            <div className='col-md-6 col-xs-12'><p className='text-start'>Updated on : 10 June, 2024</p></div>
         </div>
-    </div>
     </div>
     </>
   )
