@@ -28,3 +28,5 @@ jobs:
           git pull origin main
           git status
           npm install --only=prod
+          npm run build
+          pm2 restart 1
