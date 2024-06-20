@@ -15,6 +15,7 @@ const Login = (props) => {
   const {host,showAlert, Logdout} = props.prop
   const context = useContext(userContext)
   const {getUser,getToken} = context
+  console.log('atLogin',host)
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
