@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const mongoUri = process.env.REACT_APP_MDB
-
+console.log(mongoUri)
 
 const connectToMongo = async () =>{
     try{

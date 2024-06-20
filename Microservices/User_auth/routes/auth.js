@@ -85,6 +85,7 @@ router.post('/login',[
         res.json({success, authToken})
     }catch(error){
         console.error(error)
+        console.log(error)
         res.status(500).send("Internal server occured")
     }
 })
