@@ -1,19 +1,15 @@
 const connectToMongo = require('./db')
 const express = require('express')
 const cors = require('cors')
+const https = require('https');
+const fs = require('fs');
 
 connectToMongo();
 
 const app = express()
 const port = 5001
 
-const corsOptions = {
-  origin: 'https://docschat.in',
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
-// app.use(cors())
+app.use(cors())
 app.use(express.json())
 
 app.use('/api/auth',require('./routes/auth') )
@@ -22,10 +18,18 @@ app.use('/api/moretokens',require('./routes/moretokens') )
 
 app.use('/',(req,res)=>{
   return res.json({
-    message:"Wecome to Docster User Auth Microservice"
+    message:"Wecome to Docster user auth microservice"
   })
 })
+const httpsServer = https.createServer({
+  key: fs.readFileSync('/etc/letsencrypt/live/docschat.in/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/docschat.in/fullchain.pem'),
+}, app);
+
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server running on port 443');
+});
 
 app.listen(port, () => {
-  console.log('Backend running on http://139.59.1.84:5001/');
-});
+  console.log(`Docster listening on port http://localhost:${port}`)
+})
