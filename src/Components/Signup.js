@@ -35,18 +35,23 @@ const Signup = (props) => {
             }, 
             body: JSON.stringify({name: name,email:email, password:password})
           });
-          const json = await response.json()
-          if(json.success){
-            //save the token and redirect
-            setLoader("")
-            localStorage.setItem('token', json.authToken)
-            navigate("/")
-            showAlert("Account Created Successfully","success")
-            getUser()
-            getToken()
-            Logdout()
+          if(response.status === 200){
+            const json = await response.json()
+            if(json.success){
+              //save the token and redirect
+              setLoader("")
+              localStorage.setItem('token', json.authToken)
+              navigate("/")
+              showAlert("Account Created Successfully","success")
+              getUser()
+              getToken()
+              Logdout()
+            }else{
+              showAlert("Something is Wrong: Either account already exist or There is an error","danger")
+              setLoader("")
+            }
           }else{
-            showAlert("Something is Wrong: Either account already exist or There is an error","danger")
+            showAlert("Internal Server Eroor Occurred","danger")
             setLoader("")
           }
         }

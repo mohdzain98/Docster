@@ -18,6 +18,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationSummaryBufferMemory
 from Tokens import calTokens
+from static.Filename import filename
 
 
 app = Flask(__name__)
@@ -54,7 +55,7 @@ def uploadFile(name):
 
 @app.route('/')
 def hello_world():
-    return jsonify({"status":status,"Value":'LLM Server Running Successsfully'})
+    return jsonify({"status":status,"Value":'LLM Server Running Successsfully',"Version":1.1})
 
 @app.route('/uploadfile/<file_type>',methods=['POST','GET'])
 @cross_origin()
@@ -62,43 +63,44 @@ def uploaded(file_type):
     upload=False
     success = jsonify({"success":True,"msg":"Successfully Uploaded"})
     fail = jsonify({"success":False,"msg":"Error in Uploading"})
+    name = filename()
     if str(file_type) == 'pdf':
-        upload = uploadFile('docster_temp.pdf')
+        upload = uploadFile(f'{name}.pdf')
         if(upload):
             file=Init()
-            file.initdb(file_type)
+            file.initdb(file_type,name)
             return success
         else:
             return fail
     elif str(file_type) == 'txt':
-        upload = uploadFile('docster_temp.txt')
+        upload = uploadFile(f'{name}.txt')
         if(upload):
             file = Initxt()
-            file.initdb(file_type)
+            file.initdb(file_type,name)
             return success
         else:
             return fail
     elif str(file_type) == 'csv':
-        upload = uploadFile('docster_temp.csv')
+        upload = uploadFile(f'{name}.csv')
         if(upload):
             file = Initcsv()
-            file.initdb(file_type)
+            file.initdb(file_type,name)
             return success
         else:
             return fail
     elif str(file_type) == 'xlsx':
-        upload = uploadFile('docster_temp.xlsx')
+        upload = uploadFile(f'{name}.xlsx')
         if(upload):
             file = Initxlsx()
-            file.initdb(file_type)
+            file.initdb(file_type,name)
             return success
         else:
             return fail
     elif str(file_type) == 'sql':
-        upload = uploadFile('docster_temp.sql')
+        upload = uploadFile(f'{name}.sql')
         if(upload):
             file = Initsql()
-            file.initdb(file_type)
+            file.initdb(file_type,name)
             return success
         else:
             return fail
@@ -182,9 +184,9 @@ def chatsql():
     ques = req.get('query')
     try:
         mysql = Initsql()
-        cToken,go = mysql.initret()
+        cToken,go,name = mysql.initret()
         if go:
-            db = SQLDatabase.from_uri('sqlite:///bicycle.db')
+            db = SQLDatabase.from_uri(f'sqlite:///db/{name}.db')
             execute_query = QuerySQLDataBaseTool(db=db)
             write_query = create_sql_query_chain(llm, db)
             answer_prompt = PromptTemplate.from_template(
@@ -206,10 +208,11 @@ def chatsql():
             result = chain.invoke({"question": ques})
             gToken = len(result.split())
             return jsonify({"result":result,"cToken":cToken,"gToken":gToken,"total":cToken+gToken})
-    except:
-        return jsonify({"result":"Some Error Occurred","cToken":0,"gToken":0,"total":0})
+    except Exception as e:
+        print(e)
+        return jsonify({"result":"Some Error Occurred, Try with some other question","cToken":0,"gToken":0,"total":0})
             
 
  
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=False,host='0.0.0.0')

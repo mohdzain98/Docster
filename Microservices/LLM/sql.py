@@ -1,5 +1,6 @@
 import sqlite3
 import re
+import os
 
 class sequel:
     def __init__(self,path):
@@ -7,7 +8,7 @@ class sequel:
 
     
     def splite_script_to_db(self,db_name,sqlFile):
-        sqlite_db = db_name
+        sqlite_db = os.path.join('db', db_name)
         sql_script_file = sqlFile
         conn = sqlite3.connect(sqlite_db)
         cursor = conn.cursor()

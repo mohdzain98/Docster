@@ -1,4 +1,3 @@
-
 name: Deploy
 
 # Controls when the action will run. 
@@ -24,7 +23,8 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd docschat/docster_llm/
+          cd docschat/docster_user-auth/
           git pull origin main
           git status
-          sudo -A systemctl restart app.service
+          npm install --only=prod
+          pm2 restart 0
