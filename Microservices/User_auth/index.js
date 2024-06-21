@@ -1,8 +1,6 @@
 const connectToMongo = require('./db')
 const express = require('express')
 const cors = require('cors')
-const https = require('https');
-const fs = require('fs');
 
 connectToMongo();
 
@@ -21,14 +19,6 @@ app.use('/',(req,res)=>{
     message:"Wecome to Docster user auth microservice"
   })
 })
-const httpsServer = https.createServer({
-  key: fs.readFileSync('/etc/letsencrypt/live/docschat.in/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/docschat.in/fullchain.pem'),
-}, app);
-
-httpsServer.listen(443, () => {
-    console.log('HTTPS Server running on port 443');
-});
 
 app.listen(port, () => {
   console.log(`Docster listening on port http://localhost:${port}`)
