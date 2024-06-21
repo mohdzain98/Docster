@@ -6,3 +6,10 @@ Docschat is an innovative project designed to revolutionize how users interact w
   <li><strong>Contextual Understanding:</strong> Docster AI provides context-aware responses, ensuring accurate and relevant information is delivered.</li>
   <li><strong>Multi-Document Support:</strong> Interact with multiple documents simultaneously, allowing for comprehensive research and cross-referencing.</li>
 </ul>
+
+## Supported Documents
+- PDF
+- TXT
+- CSV
+- EXCEL
+- SQL
