@@ -16,7 +16,8 @@ app.use('/api/moretokens',require('./routes/moretokens') )
 
 app.use('/',(req,res)=>{
   return res.json({
-    message:"Wecome to Docster user auth microservice"
+    message:"Wecome to Docster user auth microservice",
+    version:"1.1"
   })
 })
 
