@@ -2,6 +2,11 @@ from pdftxt import handlePDF, handleTXT, Embed
 from spreadsheet import handleSS
 import pandas as pd
 from sql import sequel
+import os
+
+class Free:
+    def doFree(name):
+        os.remove(name)
 
 class Init:
     _instance = None
@@ -17,13 +22,14 @@ class Init:
             self.db=""
             self.initialized = True
     
-    def initdb(self, file_type):
+    def initdb(self, file_type, name):
         if(str(file_type) == 'pdf'):
-            pdf = handlePDF('tmp/docster_temp.pdf')
+            pdf = handlePDF(f'tmp/{name}.pdf')
             load = pdf.extract_text_from_pdf()
             db,eToken = Embed.getEmbeddings(load)
             self.eToken = eToken
             self.db=db
+            Free.doFree(f'tmp/{name}.pdf')
 
     def initret(self):
         return self.eToken,self.db
@@ -43,13 +49,14 @@ class Initxt:
             self.db=""
             self.initialized = True
     
-    def initdb(self, file_type):
+    def initdb(self, file_type, name):
         if(str(file_type) == 'txt'):
-            txt = handleTXT('tmp/docster_temp.txt')
+            txt = handleTXT(f'tmp/{name}.txt')
             load = txt.extract_text_from_txt()
             db,eToken = Embed.getEmbeddings(load)
             self.eToken = eToken
             self.db=db
+            Free.doFree(f'tmp/{name}.txt')
 
     def initret(self):
         return self.eToken,self.db
@@ -69,13 +76,14 @@ class Initcsv:
             self.db=""
             self.initialized = True
     
-    def initdb(self, file_type):
+    def initdb(self, file_type,name):
         if(str(file_type) == 'csv'):
-            file = handleSS('tmp/docster_temp.csv')
+            file = handleSS(f'tmp/{name}.csv')
             csvFile = file.loadData() 
             db,eToken = file.EmbedSS.getEmbeddings(csvFile)
             self.eToken = eToken
             self.db=db
+            Free.doFree(f'tmp/{name}.csv')
 
     def initret(self):
         return self.eToken,self.db
@@ -96,14 +104,15 @@ class Initxlsx:
             self.db=""
             self.initialized = True
     
-    def initdb(self, file_type):
+    def initdb(self, file_type, name):
         if(str(file_type) == 'xlsx'):
-            file = handleSS('tmp/docster_temp.xlsx')
-            fle = pd.read_excel('tmp/docster_temp.xlsx')
+            file = handleSS(f'tmp/{name}.xlsx')
+            fle = pd.read_excel(f'tmp/{name}.xlsx')
             xlFile = file.handleExcel(fle)
             db,eToken = file.EmbedSS.getEmbeddings(xlFile)
             self.eToken = eToken
             self.db=db
+            Free.doFree(f'tmp/{name}.xlsx')
 
     def initret(self):
         return self.eToken, self.db
@@ -119,17 +128,20 @@ class Initsql:
     def __init__(self):
         if not hasattr(self, 'initialized'):
             self.cToken = 0
-            self.file=False
+            self.name=""
             self.initialized = True
+            self.file=False
     
-    def initdb(self, file_type):
+    def initdb(self, file_type,name):
         if(str(file_type) == 'sql'):
-            getsql= sequel('tmp/docster_temp.sql')
+            getsql= sequel(f'tmp/{name}.sql')
             sqliteCon = getsql.convert_mysql_to_sqlite()
             cToken = len(sqliteCon.split())
-            sqliteFile = getsql.splite_script_to_db('bicycle.db',sqliteCon)
+            sqliteFile = getsql.splite_script_to_db(f'{name}.db',sqliteCon)
             self.cToken = cToken
-            self.file = sqliteFile
+            self.name = name
+            self.file=sqliteFile
+            Free.doFree(f'tmp/{name}.sql')
 
     def initret(self):
-        return self.cToken, self.file
+        return self.cToken, self.file, self.name
