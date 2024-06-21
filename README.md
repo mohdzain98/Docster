@@ -13,3 +13,14 @@ Docschat is an innovative project designed to revolutionize how users interact w
 - CSV
 - EXCEL
 - SQL
+
+## Working
+- Login in the website
+- Upload the required document
+- It will redirect to chat system
+- Ask your Queries
+
+## Benefits
+- Efficiency: Quickly locate specific information within extensive documents.
+- Accessibility: Make document interactions more user-friendly and accessible to non-experts.
+- Accuracy: Ensure the accuracy of information through sophisticated language understanding and context awareness.
