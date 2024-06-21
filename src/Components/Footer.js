@@ -25,7 +25,10 @@ const Footer = () => {
                     <p className='text-center' > &copy; 2024 Docschat</p>
                 </div>
                 <div className='col-md-4'><p className='text-center'>Developer Info: Mohd Zain <Link to={'https://mohdzain.com'} target="_blank" rel="noopener noreferrer"><i class="fa fa-external-link" aria-hidden="true"></i></Link> </p></div>
-                <div className='col-md-4 col-xs-4'><p className='text-center'>Updated on : 10 June, 2024</p></div>
+                <div className='col-md-4 col-xs-4'>
+                    <p className='text-center d-inline'>Updated on : 21 June, 2024</p>
+                    <p className='text-center d-inline ms-4'>V : 1.1</p>
+                </div>
             </div>
         </div>
     </div>
