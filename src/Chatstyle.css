@@ -60,7 +60,7 @@
     bottom: 10px;
     /* left: 0px; */
     z-index: 10;
-    width: 65%;
+    width: 68%;
     resize: horizontal;
     background-color: #e2dede;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.12) inset;
@@ -80,7 +80,7 @@
     z-index: 10;
     position: fixed;
     right: 0px;
-    left:75%;
+    left:77.5%;
     bottom: 10px;
     color: #fff;
     padding: 8px 10px;
@@ -91,7 +91,7 @@
     white-space: nowrap;
     height: 39px;
     cursor: pointer;
-    width: 110px;
+    width: 88px;
   }
   
   .commentButton:active {

@@ -15,7 +15,6 @@ const Login = (props) => {
   const {host,showAlert, Logdout} = props.prop
   const context = useContext(userContext)
   const {getUser,getToken} = context
-  console.log('atLogin',host)
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -35,18 +34,23 @@ const Login = (props) => {
           }, 
           body: JSON.stringify({email: cred.email, password:cred.password})
         });
-        const json = await response.json()
-        if(json.success){
-          //save the token and redirect
-          setLoader("")
-          localStorage.setItem('token', json.authToken)
-          navigate("/")
-          showAlert("Login Sucessfully","success")
-          getUser()
-          getToken()
-          Logdout()
+        if(response.status === 200){
+          const json = await response.json()
+          if(json.success){
+            //save the token and redirect
+            setLoader("")
+            localStorage.setItem('token', json.authToken)
+            navigate("/")
+            showAlert("Login Sucessfully","success")
+            getUser()
+            getToken()
+            Logdout()
+          }else{
+            showAlert("Invalid Credential, If you are new Kindly Signup","danger")
+            setLoader("")
+          }
         }else{
-          showAlert("Invalid Credential, If you are new Kindly Signup","danger")
+          showAlert("Internal Server Error Occurred","danger")
           setLoader("")
         }
   }

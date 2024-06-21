@@ -72,8 +72,12 @@ const Chatbox = (props) => {
             }, 
             body: JSON.stringify({query:query})
         })
-        const json = await reply.json()
-        return json
+        if(reply.status === 200){
+          const json = await reply.json()
+          return json
+        }else{
+          return false
+        }
     }
 
     const AddComment = async() => {
@@ -91,12 +95,19 @@ const Chatbox = (props) => {
         setChats(currentChats);
         setComment("");
         const aireply = await getAIReply(comment)
-        setChats([...currentChats,{message:aireply.result}])
-        updateToken(aireply.cToken, aireply.gToken)
-        setLoader("")
-        setDisbale(false)
-        setBtn("Enter")
-        addtolocal(aireply.result)
+        if(aireply !== false){
+          setChats([...currentChats,{message:aireply.result}])
+          updateToken(aireply.cToken, aireply.gToken)
+          setLoader("")
+          setDisbale(false)
+          setBtn("Enter")
+          addtolocal(aireply.result)
+        }else{
+          setLoader("")
+          setDisbale(false)
+          setBtn("Enter")
+          showAlert("There is some error","danger")
+        }
         }
       }else{
         setLoader("")

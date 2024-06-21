@@ -43,40 +43,54 @@ const TaskItem = (props) => {
 
     const submitDOC = async (event) => {
         event.preventDefault();
-        setLoader("spinner-border spinner-border-sm me-2")
-        setDisable(true)
-        const ready = await checkUser(100)
-        if(ready){
-            if(localStorage.getItem("Docschat_msg")){
-                localStorage.removeItem("Docschat_msg")
-            }
-            localStorage.setItem("Docschat_msg",JSON.stringify([{message:`Welcome to the ${btnRef} Chat System`}]))
-    
-            const formData = new FormData();
-            formData.append('file', pdfFile);
-    
-            const response = await fetch(`${llm_host}/uploadfile/${btnRef}`, {
-                method: "POST",
-                body:formData
-            })
-            const ans = await response.json()
-            setLoader("")
-            setDisable(false)
-            if(ans.success){
-                actions.changeFile(btnRef, () => {
-                    localStorage.setItem("Docschat_type",btnRef)
-                    navigate(`/chat/${btnRef}`);
-                })
-                alert(ans.msg,'primary')
-            }else{
-                alert(ans.msg,'danger')
-            }
+        if(!localStorage.getItem('token')){
+            navigate('/login')
+            alert("Kindly Login First","primary")
         }else{
-            setLoader("")
-            setDisable(false)
-            alert("Tokens Limit Reached: You can can ask for More Tokens","danger")
+            if(pdfFile === null){
+                alert("kindly select file","danger")
+            }else{    
+                setLoader("spinner-border spinner-border-sm me-2")
+                setDisable(true)
+                const ready = await checkUser(100)
+                if(ready){
+                    if(localStorage.getItem("Docschat_msg")){
+                        localStorage.removeItem("Docschat_msg")
+                    }
+                    localStorage.setItem("Docschat_msg",JSON.stringify([{message:`Welcome to the ${btnRef} Chat System`}]))
+            
+                    const formData = new FormData();
+                    formData.append('file', pdfFile);
+            
+                    const response = await fetch(`${llm_host}/uploadfile/${btnRef}`, {
+                        method: "POST",
+                        body:formData
+                    })
+                    if(response.status === 200){
+                        const ans = await response.json()
+                        setLoader("")
+                        setDisable(false)
+                        if(ans.success){
+                            actions.changeFile(btnRef, () => {
+                                localStorage.setItem("Docschat_type",btnRef)
+                                navigate(`/chat/${btnRef}`);
+                            })
+                            alert(ans.msg,'primary')
+                        }else{
+                            alert(ans.msg,'danger')
+                        }
+                    }else{
+                        setLoader("")
+                        setDisable(false)
+                        alert('Internal Server Error Occurred','danger')
+                    }
+                }else{
+                    setLoader("")
+                    setDisable(false)
+                    alert("Tokens Limit Reached: You can can ask for More Tokens","danger")
+                }
+            }
         }
-        
     };
   return (
     <div className='my-3'>
