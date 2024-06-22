@@ -70,16 +70,16 @@ const Navbar = (props) => {
 
     return (
         <>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={modalRef}>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={modalRef}>
             Launch demo modal
             </button>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Send us a Message to Get More Token</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLabel">Send us a Message to Get More Token</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className='modal-body'>
                     <form>
@@ -94,26 +94,26 @@ const Navbar = (props) => {
                     </form>
                 <span className={loader} role="status" aria-hidden="true"></span>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" ref={modalClose}>Close</button>
-                    <button type="button" class="btn btn-info" onClick={modalClick}>Send</button>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={modalClose}>Close</button>
+                    <button type="button" className="btn btn-info" onClick={modalClick}>Send</button>
                 </div>
                 </div>
             </div>
             </div>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-            <Link class="navbar-brand" to="/">
+        <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid">
+            <Link className="navbar-brand" to="/">
                 <img src="favicon-32x32.png" alt="" width="30" height="30"/>
                 </Link>
-                <Link class="navbar-brand" to="/">Docschat</Link>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>
-                <span class="navbar-toggler-icon"></span>
+                <Link className="navbar-brand" to="/">Docschat</Link>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>
+                <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <Link class="nav-link active" aria-current="page" to="/">Home</Link>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
                     </ul>
                     {( !localStorage.getItem('token')) ?"":
