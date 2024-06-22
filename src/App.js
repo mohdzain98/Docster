@@ -18,7 +18,6 @@ function App() {
   const type = useSelector(state => state.type)
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
-  console.log(host)
 
   useEffect(()=>{
     if(localStorage.getItem('token')){

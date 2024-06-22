@@ -22,5 +22,5 @@ app.use('/',(req,res)=>{
 })
 
 app.listen(port, () => {
-  console.log(`Docster listening on port http://localhost:${port}`)
+  console.log('Docster Microservice Running Successfully on port ***1')
 })

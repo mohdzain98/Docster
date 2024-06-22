@@ -21,7 +21,6 @@ const Chatbox = (props) => {
     const chatEndRef = useRef(null);
     const type = useSelector(state => state.type)
     const location = useLocation()
-    console.log(llm_host)
 
 
     useEffect(()=>{
@@ -81,41 +80,44 @@ const Chatbox = (props) => {
     }
 
     const AddComment = async() => {
-      setBtn("")
-      setDisbale(true)
-      setLoader("spinner-border spinner-border-sm me-2")
-      const ready = await checkUser(100)
-      if(ready){
-        const currentChats = [...chats];
-        if (comment !== "") {
-        currentChats.push({
-            message: comment,
-        });
-        addtolocal(comment)
-        setChats(currentChats);
-        setComment("");
-        const aireply = await getAIReply(comment)
-        if(aireply !== false){
-          setChats([...currentChats,{message:aireply.result}])
-          updateToken(aireply.cToken, aireply.gToken)
-          setLoader("")
-          setDisbale(false)
-          setBtn("Enter")
-          addtolocal(aireply.result)
+      if(comment === ""){
+        showAlert('Kindly Write Your Message First','danger')
+      }else{
+        setBtn("")
+        setDisbale(true)
+        setLoader("spinner-border spinner-border-sm me-2")
+        const ready = await checkUser(100)
+        if(ready){
+          const currentChats = [...chats];
+          if (comment !== "") {
+          currentChats.push({
+              message: comment,
+          });
+          addtolocal(comment)
+          setChats(currentChats);
+          setComment("");
+          const aireply = await getAIReply(comment)
+          if(aireply !== false){
+            setChats([...currentChats,{message:aireply.result}])
+            updateToken(aireply.cToken, aireply.gToken)
+            setLoader("")
+            setDisbale(false)
+            setBtn("Enter")
+            addtolocal(aireply.result)
+          }else{
+            setLoader("")
+            setDisbale(false)
+            setBtn("Enter")
+            showAlert("There is some error, Try uploading file Again or Ask some other Question","danger")
+          }
+          }
         }else{
           setLoader("")
           setDisbale(false)
           setBtn("Enter")
-          showAlert("There is some error","danger")
+          showAlert("Token Limits Reached: You can ask for More Tokens from drop down","danger")
         }
-        }
-      }else{
-        setLoader("")
-        setDisbale(false)
-        setBtn("Enter")
-        showAlert("Token Limits Reached: You can ask for More Tokens from drop down","danger")
       }
-      
     };
   return (
     <>
