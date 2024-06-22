@@ -28,6 +28,7 @@ const Tasks = (props) => {
                             alert={showAlert}
                             host={host}
                             llm_host={llm_host}
+                            type={element.type}
                         />
                     </div>
                 )
