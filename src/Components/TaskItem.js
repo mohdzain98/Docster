@@ -7,7 +7,7 @@ import {actionCreator} from '../State/index'
 
 
 const TaskItem = (props) => {
-    let {taskName, imgSrc, text, bg, ol, btnRef, btnClass,alert, host, llm_host} = props;
+    let {taskName, imgSrc, text, bg, ol, btnRef, btnClass,alert, host, llm_host, type} = props;
     const [pdfFile, setPdfFile] = useState(null);
     const [loader,setLoader] = useState("")
     const [disable,setDisable] = useState(null)
@@ -49,7 +49,9 @@ const TaskItem = (props) => {
         }else{
             if(pdfFile === null){
                 alert("kindly select file","danger")
-            }else{    
+            }else if(pdfFile.type !== type){
+                alert("Kindly Select Appropriate File","danger")
+            }else{  
                 setLoader("spinner-border spinner-border-sm me-2")
                 setDisable(true)
                 const ready = await checkUser(100)
