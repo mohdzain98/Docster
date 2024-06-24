@@ -4,7 +4,6 @@ import ChatElement from './ChatElement';
 import { useNavigate } from 'react-router';
 import userContext from '../Context/userContext'
 import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
 
 
 const Chatbox = (props) => {
@@ -20,7 +19,7 @@ const Chatbox = (props) => {
     let symbol = Number(0)
     const chatEndRef = useRef(null);
     const type = useSelector(state => state.type)
-    const location = useLocation()
+    const sid = useSelector(state => state.sid)
 
 
     useEffect(()=>{
@@ -32,11 +31,7 @@ const Chatbox = (props) => {
           console.error('Stored data is not an array:', getData);
         }
       }else{
-        localStorage.setItem("Docschat_msg",JSON.stringify([{message:"Welcome to the Chat System"}]))
-      }
-      if(location.pathname !== `/chat/${type}`){
-        showAlert("First Upload File","danger")
-        navigate(`/chat/${type}`)
+        localStorage.setItem("Docschat_msg",JSON.stringify([{sid:sid,message:"Welcome to the Chat System"}]))
       }
       showAlert("Chat will remain here until you Logout","primary")
       // eslint-disable-next-line
@@ -64,7 +59,8 @@ const Chatbox = (props) => {
     }
 
     const getAIReply = async (query) =>{
-        const reply = await fetch(`${llm_host}/chat/${type}`,{
+      try{
+        const reply = await fetch(`${llm_host}/chat/${type}/${sid}`,{
             method:'POST',
             headers: {
               "Content-Type": "application/json",
@@ -77,9 +73,13 @@ const Chatbox = (props) => {
         }else{
           return false
         }
+      }catch(err){
+        return false
+      }
     }
 
-    const AddComment = async() => {
+    const AddComment = async(e) => {
+      e.preventDefault();
       if(comment === ""){
         showAlert('Kindly Write Your Message First','danger')
       }else{

@@ -138,9 +138,12 @@ class Initsql:
             sqliteCon = getsql.convert_mysql_to_sqlite()
             cToken = len(sqliteCon.split())
             sqliteFile = getsql.splite_script_to_db(f'{name}.db',sqliteCon)
+            if sqliteFile:
+                self.file = 1
+            else:
+                self.file = 0
             self.cToken = cToken
             self.name = name
-            self.file=sqliteFile
             Free.doFree(f'tmp/{name}.sql')
 
     def initret(self):

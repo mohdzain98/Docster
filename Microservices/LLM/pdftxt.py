@@ -74,6 +74,7 @@ class Embed:
         docs = text_splitter.split_documents(load)
         embedding_function = OpenAIEmbeddings()
         db = FAISS.from_documents(docs, embedding_function)
+        pkl = db.serialize_to_bytes()
         eTokens = calTokens(docs)
-        return db,eTokens
+        return pkl,eTokens
 

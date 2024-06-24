@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import userContext from '../Context/userContext'
 import { useMediaQuery } from 'react-responsive'
 import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {actionCreator} from '../State/index'
+import { changeFile, setSID } from '../State/action-creator'
 
 const Navbar = (props) => {
     const {host,Logdin,showAlert} = props.prop
@@ -18,14 +17,14 @@ const Navbar = (props) => {
     const [loader,setLoader] = useState("")
     const [mail, setMail] = useState({email:"", text:""})
     const dispatch = useDispatch()
-    const actions = bindActionCreators(actionCreator, dispatch);
     
     const handleLogout =()=>{
         localStorage.removeItem('token')
         localStorage.removeItem('Docschat_type')
         localStorage.removeItem('Docschat_msg')
-        actions.changeFile("default", () => {
-        })
+        localStorage.removeItem('Docschat_sid')
+        dispatch(changeFile("default",()=>{}))
+        dispatch(setSID("default",()=>{}))
         navigate("/")
         rollNavBack()
         Logdin()

@@ -34,7 +34,10 @@ const Login = (props) => {
           }, 
           body: JSON.stringify({email: cred.email, password:cred.password})
         });
-        if(response.status === 200){
+        if(response.status === 500){
+          showAlert("Internal Server Error Occurred","danger")
+          setLoader("")
+        }else{
           const json = await response.json()
           if(json.success){
             //save the token and redirect
@@ -46,12 +49,9 @@ const Login = (props) => {
             getToken()
             Logdout()
           }else{
-            showAlert("Invalid Credential, If you are new Kindly Signup","danger")
+            showAlert(json.errors,"danger")
             setLoader("")
           }
-        }else{
-          showAlert("Internal Server Error Occurred","danger")
-          setLoader("")
         }
   }
   

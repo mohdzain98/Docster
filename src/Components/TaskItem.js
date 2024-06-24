@@ -2,8 +2,10 @@ import React,{ useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../index.css'
 import { useDispatch } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import {actionCreator} from '../State/index'
+// import { bindActionCreators } from 'redux'
+// import {actionCreator} from '../State/index'
+import { v4 as uuidv4 } from 'uuid';
+import { changeFile, setSID } from "../State/action-creator";
 
 
 const TaskItem = (props) => {
@@ -14,7 +16,7 @@ const TaskItem = (props) => {
     const navigate= useNavigate();
     const dispatch = useDispatch()
     // const type = useSelector(state => state.type)
-    const actions = bindActionCreators(actionCreator, dispatch);
+    // const actions = bindActionCreators(actionCreator, dispatch);
 
     const handleDOCChange = (event) => {
         setPdfFile(event.target.files[0]);
@@ -43,6 +45,7 @@ const TaskItem = (props) => {
 
     const submitDOC = async (event) => {
         event.preventDefault();
+        const Sid = uuidv4()
         if(!localStorage.getItem('token')){
             navigate('/login')
             alert("Kindly Login First","primary")
@@ -59,12 +62,12 @@ const TaskItem = (props) => {
                     if(localStorage.getItem("Docschat_msg")){
                         localStorage.removeItem("Docschat_msg")
                     }
-                    localStorage.setItem("Docschat_msg",JSON.stringify([{message:`Welcome to the ${btnRef} Chat System`}]))
+                    localStorage.setItem("Docschat_msg",JSON.stringify([{sid:Sid, message:`Welcome to the ${btnRef} Chat System`}]))
             
                     const formData = new FormData();
                     formData.append('file', pdfFile);
             
-                    const response = await fetch(`${llm_host}/uploadfile/${btnRef}`, {
+                    const response = await fetch(`${llm_host}/uploadfile/${btnRef}/${Sid}`, {
                         method: "POST",
                         body:formData
                     })
@@ -73,10 +76,13 @@ const TaskItem = (props) => {
                         setLoader("")
                         setDisable(false)
                         if(ans.success){
-                            actions.changeFile(btnRef, () => {
-                                localStorage.setItem("Docschat_type",btnRef)
-                                navigate(`/chat/${btnRef}`);
-                            })
+                            dispatch(setSID(Sid,()=>{
+                                localStorage.setItem("Docschat_sid", Sid);
+                            }));
+                            dispatch(changeFile(btnRef, () => { 
+                                localStorage.setItem("Docschat_type", btnRef);
+                                navigate(`/chat/${btnRef}/${Sid}`);
+                            }));
                             alert(ans.msg,'primary')
                         }else{
                             alert(ans.msg,'danger')
