@@ -83,8 +83,9 @@ class handleSS:
             embedding_function = OpenAIEmbeddings()
             # load it into Chroma
             db = FAISS.from_documents(chunks, embedding_function)
+            pkl = db.serialize_to_bytes()
             eToken = calTokens(chunks)
-            return db,eToken
+            return pkl,eToken
 
 
     

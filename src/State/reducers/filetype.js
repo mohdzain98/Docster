@@ -1,4 +1,4 @@
-const reducer = (state=localStorage.getItem("Docschat_type")?localStorage.getItem("Docschat_type"):"default",action)=>{
+const fileReducer = (state=localStorage.getItem("Docschat_type")?localStorage.getItem("Docschat_type"):"default",action)=>{
     if(action.type ==='file'){
         return action.payload
     }
@@ -7,4 +7,4 @@ const reducer = (state=localStorage.getItem("Docschat_type")?localStorage.getIte
     }
 }
 
-export default reducer;
+export default fileReducer;

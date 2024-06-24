@@ -16,9 +16,11 @@ function App() {
   const [alert, setAlert] = useState(null)
   const [login, setLogin] = useState(true)
   const type = useSelector(state => state.type)
+  const sid = useSelector(state => state.sid)
+  // const sid = sessionStorage.getItem('ssid')
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
-
+  
   useEffect(()=>{
     if(localStorage.getItem('token')){
       setLogin(false)
@@ -54,8 +56,8 @@ function App() {
         <Route exact path="/" element={<Home prop={{host, showAlert, Logdin, Logdout, login, llm_host}}/>}></Route>
         <Route exact path='/login' element={<Login prop={{host, showAlert, Logdout}}/>}></Route>
         <Route exact path='/signup' element={<Signup prop={{host, showAlert, Logdout}}/>}></Route>
-        <Route exact path='/chat' element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
-        <Route exact path={`/chat/${type}`} element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
+        <Route exact path='/chat/default' element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
+        <Route exact path={`/chat/${type}/${sid}`} element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
         <Route exact path='/visitors' element={<Visitor/>}></Route>
         {/* <Route exact path='/chat/txt' element={<Chatbox prop={{host, showAlert}}/>}></Route>
         <Route exact path='/chat/csv' element={<Chatbox prop={{host, showAlert}}/>}></Route>

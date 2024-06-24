@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 const Main = (props) => {  
   const {login} = props.prop
   const type = useSelector(state => state.type)
+  const sid = useSelector(state => state.sid)
   return (
     <>
     <section className='home' style={{marginTop:"-80px"}}>
@@ -23,7 +24,7 @@ const Main = (props) => {
             : <div><ScrollLink className='btn' to='task' smooth={true} duration={50}>
                 Get Started
               </ScrollLink>
-              <Link className='btn' to={`/chat/${type}`}>Chat</Link>
+              <Link className='btn' to={`/chat/${type}/${sid}`}>Chat</Link>
               </div>}
             
         </div>

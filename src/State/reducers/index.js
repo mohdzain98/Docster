@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
-import filetype from "./filetype";
+import fileReducer from "./filetype";
+import sidReducer from "./sid"
 
 const reducers = combineReducers({
-    type : filetype
+    type : fileReducer,
+    sid : sidReducer
 })
 
 export default reducers

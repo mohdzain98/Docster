@@ -7,3 +7,13 @@ export const changeFile = (ref, callback) =>{
         callback()
     }
 }
+
+export const setSID = (sid, callback)=>{
+    return (dispatch)=>{
+        dispatch({
+            type:'sid',
+            payload: sid
+        })
+        callback()
+    }
+}
