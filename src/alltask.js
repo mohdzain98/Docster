@@ -22,7 +22,7 @@ const tasks=[
     },
     {
         taskName:'CSV',
-        imgSrc:'csv.jpg',
+        imgSrc:'csv.png',
         text:'white',
         bg:'danger',
         ol:['I can Q&A on your CSV File','I can give you key points from CSV','I can do calculations from this CSV'],
@@ -32,7 +32,7 @@ const tasks=[
     },
     {
         taskName:'EXCEL',
-        imgSrc:'excel.jpg',
+        imgSrc:'excel.png',
         text:'black',
         bg:'warning',
         ol:['I can Q&A on your Excel File','I can give you key points from Excel','I can do calculations from this Excel'],
@@ -42,7 +42,7 @@ const tasks=[
     },
     {
         taskName:'SQL',
-        imgSrc:'sql.jpg',
+        imgSrc:'sql.png',
         text:'black',
         bg:'info',
         ol:['I can Q&A on your SQL File','I can create Query on this File','I can retrieve documents from SQL'],
