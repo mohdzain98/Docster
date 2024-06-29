@@ -35,7 +35,7 @@ router.post('/createuser',[
     //if there are error return bad request
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()})
+        return res.status(500).json({msg:'error occurred',errors:errors.array()})
     }
 
     // check email already exist

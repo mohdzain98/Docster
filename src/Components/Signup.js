@@ -42,12 +42,9 @@ const Signup = (props) => {
         }
       )
       const data = await response.json()
-      const email = await data.email
-      const name = await data.name
-      const id = await data.id
-      setCred({name:name,email:email,password:id,cpassword:id})
-      handleSubmit()
+      handleSubmit(data.name, data.email, data.id, data.id)
     }
+
     const onChangeModal = (e)=>{
         setOtp(e.target.value)
     }
@@ -127,7 +124,7 @@ const Signup = (props) => {
       if(resp.success){
         modalClose.current.click()
         showAlert('OTP verified Successully','primary')
-        handleSubmit()
+        handleSubmit(cred.name, cred.email, cred.password, cred.cpassword)
         setMloader("")
       }else{
         setValid('visible')
@@ -145,8 +142,8 @@ const Signup = (props) => {
       onError: (error) => showAlert(`${error} - Kindly Signup Manually`,'danger')
     });
 
-    const handleSubmit = async (e)=>{
-        const {name, email,password, cpassword} = cred
+    const handleSubmit = async (name,email,password,cpassword)=>{
+        // const {name, email,password, cpassword} = cred
         if(password === cpassword){
         setLoader("spinner-border m-2")
         const response = await fetch(`${host}/api/auth/createuser`, {
@@ -159,6 +156,7 @@ const Signup = (props) => {
           if(response.status === 500){
             showAlert("Internal Server Error Occurred","danger")
             setLoader("")
+            setCred({name:"", email:"", password:"", cpassword:""})
           }else{
             const json = await response.json()
             if(json.success){
