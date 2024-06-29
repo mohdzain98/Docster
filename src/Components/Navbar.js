@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import userContext from '../Context/userContext'
 import { useMediaQuery } from 'react-responsive'
 import { useDispatch } from 'react-redux'
@@ -9,7 +9,7 @@ const Navbar = (props) => {
     const {host,Logdin,showAlert} = props.prop
     const navigate = useNavigate()
     const context = useContext(userContext)
-    const {user,getUser, token, getToken} = context
+    const {user,getUser, token, getToken, contact} = context
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     let ref = useRef(null)
     let modalRef = useRef(null)
@@ -17,6 +17,7 @@ const Navbar = (props) => {
     const [loader,setLoader] = useState("")
     const [mail, setMail] = useState({email:"", text:""})
     const dispatch = useDispatch()
+    let location = useLocation();
     
     const handleLogout =()=>{
         localStorage.removeItem('token')
@@ -42,15 +43,26 @@ const Navbar = (props) => {
           body: JSON.stringify({email,text}),
         });
         const result = await response.json()
-        if(result.success){
-          showAlert("Request Added Successfully","primary")
-        }else{
-          showAlert(result.errors,"danger")
-        }
+        return result
       }
     const modalClick = async() =>{
         setLoader("spinner-border spinner-border-sm")
-        await addMoreTokens(mail.email,mail.text)
+        const result = await addMoreTokens(mail.email,mail.text)
+        if(result.success){
+            const body=`<strong>email: </strong>:${mail.email}
+            <p>${mail.text}</p>
+              `
+            const send = await contact("More Tokens Request",body)
+            if(send.success){
+                showAlert('Message sent successfully','primary')
+                setMail({email:"",text:""})
+            }else{
+                showAlert('There is an error sending Message','danger')
+                setMail({email:"",text:""})
+            }
+          }else{
+            showAlert(result.errors,"danger")
+          }
         setLoader("")
         modalClose.current.click()
     }
@@ -103,7 +115,7 @@ const Navbar = (props) => {
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-                <img src="favicon-32x32.png" alt="" width="30" height="30"/>
+                <img src="android-chrome-192x192.png" alt="" width="30" height="30"/>
                 </Link>
                 <Link className="navbar-brand" to="/">Docschat</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>
@@ -112,10 +124,26 @@ const Navbar = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                        <Link className={`nav-link ${location.pathname === "/"?"active":""}`} aria-current="page" to="/" onClick={rollNavBack}>Home</Link>
                         </li>
+                        <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/about"?"active":""}`} aria-current="page" to="/about" onClick={rollNavBack}>About</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/pricing"?"active":""}`} aria-current="page" to="/pricing" onClick={rollNavBack}>Pricing</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/contactus"?"active":""}`} aria-current="page" to="/contactus" onClick={rollNavBack}>Contact Us</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/faq"?"active":""}`} aria-current="page" to='/faq' onClick={rollNavBack}>FAQ</Link>
+                        </li>
+                        
                     </ul>
-                    {( !localStorage.getItem('token')) ?"":
+                    {( !localStorage.getItem('token')) ?<form className='d-flex'>
+                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/login' ?"none":"initial"}`}} className='btn btn-primary mx-1' role='button' to="/login" onClick={rollNavBack}>Login</Link>
+                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/signup' ?"none":"initial"}`}} className='btn btn-primary mx-1' role='button' to='/signup' onClick={rollNavBack}>Signup</Link>
+                    </form>:
                         <div className="btn-group">
                             <button type="button" className="btn btn-secondary dropdown-toggle mx-2 me-2" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                             <i className="fa-solid fa-user me-2" style={{color: "#FFD43B"}}></i>{user}

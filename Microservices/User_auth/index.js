@@ -13,11 +13,12 @@ app.use(express.json())
 app.use('/api/auth',require('./routes/auth') )
 app.use('/api/access',require('./routes/access') )
 app.use('/api/moretokens',require('./routes/moretokens') )
+app.use('/api/mail',require('./routes/mail'))
 
 app.use('/',(req,res)=>{
   return res.json({
     message:"Wecome to Docster user auth microservice",
-    version:"1.2"
+    version:"1.3"
   })
 })
 

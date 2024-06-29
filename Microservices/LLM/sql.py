@@ -8,6 +8,7 @@ class sequel:
 
     
     def splite_script_to_db(self,db_name,sqlFile):
+        os.makedirs("db", exist_ok=True)
         sqlite_db = os.path.join('db', db_name)
         sql_script_file = sqlFile
         conn = sqlite3.connect(sqlite_db)

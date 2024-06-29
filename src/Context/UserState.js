@@ -73,10 +73,50 @@ const UserState = (props) => {
         }
       }
     }
+    
+    const sendEmail = async (name,email) =>{
+      const send = await fetch(`${host}/api/mail/sendmail`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({email:email, name:name})
+      })
+      if(send.status === 200){
+        const reply = await send.json()
+        return reply
+      }else{
+        return {msg:"Email was not sent",uid:null}
+      }
+    }
+
+    const verifyEmail = async (uid,otp) =>{
+      const send = await fetch(`${host}/api/mail/verifyotp`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({userId:uid, otp:otp})
+      })
+      const reply = await send.json()
+      return reply
+    }
+
+    const contact = async(subject,body, to) =>{
+      const response = await fetch(`${host}/api/mail/contact`,{
+        method:'POST',
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify({subject:subject, body:body, to:to})
+      })
+      const reply = await response.json()
+      return reply
+    }
 
   return (
     <div>
-      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser}}>
+      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact}}>
             {props.children}
         </UserContext.Provider>
     </div>

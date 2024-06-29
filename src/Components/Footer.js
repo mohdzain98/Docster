@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../Styling/footer.css'
 
 const Footer = () => {
   return (
@@ -7,28 +8,26 @@ const Footer = () => {
     <div className='text-black pt-4' style={{background:'#e0e0e0'}}>
         <div className='container'>
             <div className='row'>
-                <div className='col-md-8 col-xs-8'>
-                    <strong>INFORMATION:</strong>
-                    <ul>
-                        <li>Large Language Model Integrated with Documents for Q and A.</li>
-                        <li>LLM is an experiment and can give unexpected answers.</li>
-                        <li>According to LLM providing Companies 1000 tokens are equal to 750 words.</li>
+                <div>
+                    <ul className="list-inline">
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/about'} style={{textDecoration:'none', color:'black'}}>About</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/privacy-policy'} style={{textDecoration:'none', color:'black'}}>Privacy Policy</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/pricing'} style={{textDecoration:'none', color:'black'}}>Pricing</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Feedback</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Report an Issue</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/faq'} style={{textDecoration:'none', color:'black'}}>FAQs</Link></button></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div className='text-white bg-dark pt-2'>
-        <div className="container">
-            <div className="row">
-                <div className='col-md-4 col-xs-4'>
-                    <p className='text-center' > &copy; 2024 Docschat</p>
-                </div>
-                <div className='col-md-4'><p className='text-center'>Developer Info: Mohd Zain <Link to={'https://mohdzain.com'} target="_blank" rel="noopener noreferrer"><i className="fa fa-external-link" aria-hidden="true"></i></Link> </p>
-                </div>
-                <div className='col-md-4 col-xs-4'>
-                    <p className='text-center'>Updated on : 24 June, 2024  V: 1.2 <Link to={'/visitors'}>.</Link></p>
-                </div>
+    <div className='text-white bg-dark pt-3'>
+        <div className="container" id='copy'>
+            <div>
+                <p className='text-center' > &copy; 2024 Docschat</p>
+            </div>
+            <div>
+                <p className='text-center'>Updated on : 28 June, 2024  V: 1.3 <Link to={'/visitors'}>.</Link></p>
             </div>
         </div>
     </div>

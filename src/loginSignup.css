@@ -1,7 +1,7 @@
 #ls{
     display:flex;
     flex-direction: column;
-    margin: auto;
+    /* margin: auto; */
     width: 400px;
     background: #fff;
     /* padding-bottom: 30px; */
@@ -10,6 +10,27 @@
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     
+  }
+
+  #su{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* margin: auto; */
+    width: auto;
+    background: #fff;
+    /* padding-bottom: 30px; */
+    position: relative;
+    border: none;
+    justify-content: center;
+    align-items: baseline;
+    row-gap: 0px;
+    column-gap: 100px;
+
+  }
+
+  .gs{
+    position: relative;
   }
   .header{
     display: flex;
@@ -34,18 +55,17 @@
   }
   
   .inputs{
-    margin-top: 35px;
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     gap:25px;
-  
   }
   
   .input{
     display: flex;
     align-items:center;
     margin: auto;
-    width:350px;
+    width:320px;
     height:45px;
     background: #eaeaea;
     border-radius: 6px;
@@ -55,7 +75,7 @@
   }
   .input input{
     height: 35px;
-    width:330px;
+    width:300px;
     background: transparent;
     border: none;
     outline:none;
@@ -65,15 +85,15 @@
   
   .submit-container{
     display: flex;
-    gap: 30px;
-    margin: 40px auto;
+    gap: 10px;
+    margin: 10px auto;
     justify-content: center;
   }
 
   .ssubmit-container{
     display: flex;
     gap: 30px;
-    margin: 17px auto;
+    margin: 20px auto;
     justify-content: center;
   }
   
@@ -104,4 +124,18 @@
     align-items: center;
     font-weight: bold;
 }
-  
+
+#su p{
+  width:fit-content;
+  align-items: center;
+  font-weight: bold;
+}
+
+#su .box{
+  width:400px;
+  position: relative;
+  background: linear-gradient(50deg, rgb(123, 159, 228) 0%, rgb(106, 137, 240) 35%, rgb(9, 75, 199) 100%);
+  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+

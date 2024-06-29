@@ -1,0 +1,53 @@
+#about .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#about p {
+    margin: 10px 0;
+}
+#about .team {
+    display: flex;
+    flex-wrap: wrap;
+}
+#about .team-member {
+    flex: 1 1 45%;
+    margin: 10px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+#about .team-member h3 {
+    margin-top: 0;
+}
+#about .team-member img {
+    max-width: 100%;
+    border-radius: 50%;
+}
+#about .social a{
+    margin:0 10px 0 0;
+    color: #fff;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    line-height: 10px;
+    font-size: 15px;
+    text-align: center;
+    transform: all 0.2s ease-out;
+    vertical-align: bottom;  
+    padding-top: 8px;
+  } 
+  #about .social a.insta{
+    background-color: #dc3545;
+  }
+  #about .social a.blue{
+    background-color: #0d6efd;
+  }
+  #about .social a.black{
+    background-color: #333;
+  }

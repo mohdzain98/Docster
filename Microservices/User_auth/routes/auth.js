@@ -10,6 +10,21 @@ const Access = require('../models/Acess')
 
 const JWT_SECRET = 'welcometodocster'
 
+router.post('/existuser',async(req,res)=>{
+    let success = true;
+    const {email} = req.body
+    try{
+        let user = await User.findOne({email})
+        if(user){
+            return res.json({success, id:user.id, name:user.name, msg:'Email Already Exist'})
+        }
+        success=false
+        return res.json({success, msg:'Email Not Found'})
+    }
+    catch(error){
+        res.status(500).send("Internal server occured")
+    }
+})
 //create a user using : POST "/api/auth" doesn't require auth
 router.post('/createuser',[
     body('name','Enter a Valid name').isLength({min:3}),
@@ -101,6 +116,40 @@ router.post('/getuser',fetchuser, async (req,res) => {
     }
 })
 
+router.post('/glogin', async (req,res) => {
+    let success = false;
+    const {email} = req.body
+    try{
+        let user = await User.findOne({email})
+        if(!user){
+            return res.status(400).json({success, errors:'Email Not Found Kindly Signup'})
+        }
+        const data={
+            user:{
+                id: user.id
+            }
+        }
+        const authToken = jwt.sign(data, JWT_SECRET)
+        success = true
+        res.json({success, authToken})
+    }catch(error){
+        console.error(error)
+        res.status(500).send("Internal server occured")
+    }
+})
+
+//Route 3 : Get loggedin user detail : POST "/api/auth/getuser"
+router.post('/getuser',fetchuser, async (req,res) => {
+    try{
+        const userId =req.user.id
+        const user = await User.findById(userId).select("-password")
+        res.send(user)
+    }catch(error){
+        console.error(error)
+        res.status(500).send('internal server error')
+    }
+})
+
 // Route 4: Update Current Tokens: POST "api/auth/updatect"
 router.put('/updatect', fetchuser, async(req,res)=>{
     const {ct, gt} =req.body
@@ -146,6 +195,20 @@ router.put('/updatemt/:id',fetchuser, async(req,res) => {
         res.json({user})
     }catch(error){
         console.error(error.message)
+        res.status(500).send("Internal Server Error")
+    }
+})
+
+router.put('/updatepass/:id',async(req,res)=>{
+    const {npass} = req.body
+    try{
+        const np={}
+        if(npass){np.pass = npass}
+        const salt = await bcrypt.genSalt(10)
+        const secPass = await bcrypt.hash(np.pass,salt)
+        const update = await  User.findByIdAndUpdate(req.params.id,{password:secPass},{new:true})
+        res.json({success:true,val:update})
+    }catch(error){
         res.status(500).send("Internal Server Error")
     }
 })
