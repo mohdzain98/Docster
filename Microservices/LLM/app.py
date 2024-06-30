@@ -146,9 +146,7 @@ def chat():
 def chatpdf(sid):
     req = request.json
     ques = req.get('query')
-    print(sid)
     eToken = int(redis_client.hget(sid, 'eToken'))
-    print(sid,eToken)
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
     doc = db.similarity_search(ques)
     cToken = calTokens(doc)
@@ -236,7 +234,6 @@ def chatsql(sid):
             gToken = len(result.split())
             return jsonify({"result":result,"cToken":cToken,"gToken":gToken,"total":cToken+gToken})
     except Exception as e:
-        print(e)
         return jsonify({"result":"Some Error Occurred, Try with some other question","cToken":0,"gToken":0,"total":0})
             
 

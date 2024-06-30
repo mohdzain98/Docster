@@ -72,7 +72,7 @@ const Signup = (props) => {
 
     const verifyUser = async (e) =>{
       e.preventDefault()
-      setLoader("spinner-border m-2")
+      setLoader("spinner-border spinner-border-sm")
       const {name, email,password, cpassword} = cred
       if(password !== cpassword){
         showAlert("Password and Confirm password does not match",'danger')
@@ -145,7 +145,7 @@ const Signup = (props) => {
     const handleSubmit = async (name,email,password,cpassword)=>{
         // const {name, email,password, cpassword} = cred
         if(password === cpassword){
-        setLoader("spinner-border m-2")
+        setLoader("spinner-border spinner-border-sm")
         const response = await fetch(`${host}/api/auth/createuser`, {
             method: "POST",
             headers: {
@@ -198,13 +198,12 @@ const Signup = (props) => {
   return (
     <>
       <div className='container' id='su' style={{marginTop:"-15px"}}>
-      <div className="header">
+        <div className="header mb-4">
           <div className="text">Signup</div>
           <div className="underline"></div>
           <p>Already have an account, kindly <Link to={'/login'}>Login</Link></p>
           <div className={loader} role="status"><span className="visually-hidden">Loading...</span></div>
         </div>
-
         <div className='box pb-3'>
         <form onSubmit={verifyUser}>
         <div className='inputs'>
@@ -247,7 +246,7 @@ const Signup = (props) => {
           </button>
 
           <div className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="otpModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">Kindly Verify Your Email: </h5>

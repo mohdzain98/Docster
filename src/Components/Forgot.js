@@ -146,7 +146,7 @@ const Forgot = (props) => {
         <hr/>
       <form onSubmit={otp ===""?handleSubmit:verifyotp}>
         <div className="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <label for="exampleInputEmail1" class="form-label">Enter your Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Email' value={email} onChange={(e) =>setEmail(e.target.value)}/>
         </div>
         <div className={`mb-3 ${otptf}`} >

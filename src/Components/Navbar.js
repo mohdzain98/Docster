@@ -46,25 +46,29 @@ const Navbar = (props) => {
         return result
       }
     const modalClick = async() =>{
-        setLoader("spinner-border spinner-border-sm")
-        const result = await addMoreTokens(mail.email,mail.text)
-        if(result.success){
-            const body=`<strong>email: </strong>:${mail.email}
-            <p>${mail.text}</p>
-              `
-            const send = await contact("More Tokens Request",body)
-            if(send.success){
-                showAlert('Message sent successfully','primary')
-                setMail({email:"",text:""})
+        if(mail.email ==="" || mail.text === ""){
+            showAlert('Kindly Fill all fields','danger')
+        }else{
+            setLoader("spinner-border spinner-border-sm")
+            const result = await addMoreTokens(mail.email,mail.text)
+            if(result.success){
+                const body=`<strong>email: </strong>:${mail.email}
+                <p>${mail.text}</p>
+                `
+                const send = await contact("More Tokens Request",body)
+                if(send.success){
+                    showAlert('Message sent successfully','primary')
+                    setMail({email:"",text:""})
+                }else{
+                    showAlert('There is an error sending Message','danger')
+                    setMail({email:"",text:""})
+                }
             }else{
-                showAlert('There is an error sending Message','danger')
-                setMail({email:"",text:""})
+                showAlert(result.errors,"danger")
             }
-          }else{
-            showAlert(result.errors,"danger")
-          }
-        setLoader("")
-        modalClose.current.click()
+            setLoader("")
+            modalClose.current.click()
+        }
     }
     const getMoreToken =() =>{
         modalRef.current.click()
@@ -81,34 +85,34 @@ const Navbar = (props) => {
 
     return (
         <>
-        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={modalRef}>
-            Launch demo modal
+            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" ref={modalRef}>
+                Launch demo modal
             </button>
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Send us a Message to Get More Token</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div className='modal-body'>
-                    <form>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">Email</label>
-                        <input type="email" className="form-control" id="email" value={mail.email}name='email' placeholder='Email' onChange={onChange}/>
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                        <h5 className="modal-title" id="exampleModalLabel">Send us a Message to Get More Token</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    <div className='modal-body'>
+                        <form>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email</label>
+                                <input type="email" className="form-control" id="email" value={mail.email}name='email' placeholder='Email' onChange={onChange}/>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="text" className="form-label">Message</label>
+                                <textarea className="form-control" id="text" name='text' value={mail.text} onChange={onChange}/>
+                            </div>
+                        </form>
+                        <span className={loader} role="status" aria-hidden="true"></span>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="text" className="form-label">Message</label>
-                        <textarea className="form-control" id="text" name='text' value={mail.text} onChange={onChange} />
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={modalClose}>Close</button>
+                        <button type="button" className="btn btn-info" onClick={modalClick}>Send</button>
                     </div>
-                    </form>
-                <span className={loader} role="status" aria-hidden="true"></span>
-                </div>
-                <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={modalClose}>Close</button>
-                    <button type="button" className="btn btn-info" onClick={modalClick}>Send</button>
-                </div>
                 </div>
             </div>
             </div>
