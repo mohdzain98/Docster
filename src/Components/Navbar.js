@@ -18,6 +18,7 @@ const Navbar = (props) => {
     const [mail, setMail] = useState({email:"", text:""})
     const dispatch = useDispatch()
     let location = useLocation();
+    const to = process.env.REACT_APP_TO
     
     const handleLogout =()=>{
         localStorage.removeItem('token')
@@ -55,7 +56,7 @@ const Navbar = (props) => {
                 const body=`<strong>email: </strong>:${mail.email}
                 <p>${mail.text}</p>
                 `
-                const send = await contact("More Tokens Request",body)
+                const send = await contact("More Tokens Request",body, to)
                 if(send.success){
                     showAlert('Message sent successfully','primary')
                     setMail({email:"",text:""})
