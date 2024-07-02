@@ -14,13 +14,13 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationSummaryBufferMemory
+from langchain_community.callbacks.manager import get_openai_callback
 from langchain_community.vectorstores import FAISS
-from Tokens import calTokens
 from static.Filename import filename
+from static.Chain import chain
 import os
 import traceback
 import redis
-import math
 
 
 app = Flask(__name__)
@@ -28,12 +28,12 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 status = "active"
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
-llm = ChatOpenAI()
+llm = ChatOpenAI(max_tokens=500)
 
 redis_host = os.getenv('REDIS_HOST')
 redis_port = os.getenv('REDIS_PORT')
 
-redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
+redis_client = redis.Redis(host=redis_host, port=redis_port, db=0)
 
 try:
     path = os.path.dirname(os.path.abspath(__file__))
@@ -60,7 +60,7 @@ def uploadFile(name):
 
 @app.route('/')
 def hello_world():
-    return jsonify({"status":status,"Value":'LLM Server Running Successsfully',"Version":1.3})
+    return jsonify({"status":status,"Value":'LLM Server Running Successsfully',"Version":1.4})
 
 @app.route('/uploadfile/<file_type>/<sid>',methods=['POST','GET'])
 @cross_origin()
@@ -75,9 +75,12 @@ def uploaded(file_type,sid):
         if(upload):
             file=Init()
             file.initdb(file_type,name)
-            eToken,db = file.initret()
-            redis_client.hset(sid, 'db', db)
-            redis_client.hset(sid, 'eToken', eToken)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
             return success
         else:
             return fail
@@ -87,9 +90,12 @@ def uploaded(file_type,sid):
         if(upload):
             file = Initxt()
             file.initdb(file_type,name)
-            eToken,db = file.initret()
-            redis_client.hset(sid, 'db', db)
-            redis_client.hset(sid, 'eToken', eToken)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
             return success
         else:
             return fail
@@ -98,9 +104,12 @@ def uploaded(file_type,sid):
         if(upload):
             file = Initcsv()
             file.initdb(file_type,name)
-            eToken,db = file.initret()
-            redis_client.hset(sid, 'db', db)
-            redis_client.hset(sid, 'eToken', eToken)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
             return success
         else:
             return fail
@@ -109,9 +118,12 @@ def uploaded(file_type,sid):
         if(upload):
             file = Initxlsx()
             file.initdb(file_type,name)
-            eToken,db = file.initret()
-            redis_client.hset(sid, 'db', db)
-            redis_client.hset(sid, 'eToken', eToken)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
             return success
         else:
             return fail
@@ -120,10 +132,13 @@ def uploaded(file_type,sid):
         if(upload):
             file = Initsql()
             file.initdb(file_type,name)
-            cToken,go,name = file.initret()
-            redis_client.hset(sid, 'go', go)
-            redis_client.hset(sid, 'cToken', cToken)
-            redis_client.hset(sid, 'name',name)
+            ready,cToken,go,name = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'go', go)
+                redis_client.hset(sid, 'cToken', cToken)
+                redis_client.hset(sid, 'name',name)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
             return success
         else:
             return fail
@@ -134,7 +149,7 @@ def uploaded(file_type,sid):
 def chat():
     req = request.json
     ques = req.get('query')
-    memory = ConversationSummaryBufferMemory(llm=llm,max_token_limit=100)
+    memory = ConversationSummaryBufferMemory(llm=llm,max_token_limit=500)
     conversation = ConversationChain(llm=llm,memory=memory)
     result = conversation.predict(input=ques)
     cToken = len(ques.split())
@@ -148,13 +163,12 @@ def chatpdf(sid):
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
-    doc = db.similarity_search(ques)
-    cToken = calTokens(doc)
-    chain = load_qa_chain(llm,chain_type='stuff')
-    result = chain.run(input_documents=doc,question=ques)
-    gToken = math.floor(len(result.split())*1.334)
-    total = cToken + eToken + gToken
-    res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
     return (res)
 
 @app.route('/chat/txt/<sid>', methods=['POST', 'GET'])
@@ -163,13 +177,12 @@ def chattxt(sid):
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
-    doc = db.similarity_search(ques)
-    cToken = calTokens(doc)
-    chain = load_qa_chain(llm,chain_type='stuff')
-    result = chain.run(input_documents=doc,question=ques)
-    gToken = math.floor(len(result.split())*1.334)
-    total = cToken + eToken + gToken
-    res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
     return (res)
 
 @app.route('/chat/csv/<sid>', methods=['POST', 'GET'])
@@ -178,13 +191,13 @@ def chatcsv(sid):
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
-    doc = db.similarity_search(ques)
-    cToken = calTokens(doc)
-    chain = load_qa_chain(llm,chain_type='stuff')
-    result = chain.run(input_documents=doc,question=ques)
-    gToken = math.floor(len(result.split())*1.334)
-    total = cToken + eToken + gToken
-    res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    print(eToken, cb.prompt_tokens,cb.completion_tokens)
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
     return (res)
 
 @app.route('/chat/xlsx/<sid>', methods=['POST', 'GET'])
@@ -193,13 +206,12 @@ def chatxlsx(sid):
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
-    doc = db.similarity_search(ques)
-    cToken = calTokens(doc)
-    chain = load_qa_chain(llm,chain_type='stuff')
-    result = chain.run(input_documents=doc,question=ques)
-    gToken = math.floor(len(result.split())*1.334)
-    total = cToken + eToken + gToken
-    res = jsonify({"result":result,"cToken":cToken+eToken,"gToken":gToken,"total":total})
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
     return (res)
 
 @app.route('/chat/sql/<sid>', methods=['POST', 'GET'])

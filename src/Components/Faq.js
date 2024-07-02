@@ -24,7 +24,7 @@ const Faq = () => {
                 <div class="accordion-body">
                 Docschat Support five types of Documents 
                 <ul>
-                    <li><strong>PDF : </strong>PDF files with no images</li>
+                    <li><strong>PDF : </strong>Any type of PDF files: text, images or mixed</li>
                     <li><strong>TXT : </strong>Any type of text file</li>
                     <li><strong>CSV : </strong>Any type of CSV file</li>
                     <li><strong>Excel : </strong>Any type of Excel file</li>

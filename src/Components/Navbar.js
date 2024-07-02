@@ -120,7 +120,7 @@ const Navbar = (props) => {
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-                <img src="android-chrome-192x192.png" alt="" width="30" height="30"/>
+                <img src="favicon-32x32.png" alt="" width="30" height="30"/>
                 </Link>
                 <Link className="navbar-brand" to="/">Docschat</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>

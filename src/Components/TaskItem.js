@@ -15,8 +15,7 @@ const TaskItem = (props) => {
     const [disable,setDisable] = useState(null)
     const navigate= useNavigate();
     const dispatch = useDispatch()
-    // const type = useSelector(state => state.type)
-    // const actions = bindActionCreators(actionCreator, dispatch);
+    const [status, setStatus] = useState("")
 
     const handleDOCChange = (event) => {
         setPdfFile(event.target.files[0]);
@@ -50,11 +49,13 @@ const TaskItem = (props) => {
             navigate('/login')
             alert("Kindly Login First","primary")
         }else{
+            setStatus("checking file type")
             if(pdfFile === null){
                 alert("kindly select file","danger")
             }else if(pdfFile.type !== type){
                 alert("Kindly Select Appropriate File","danger")
-            }else{  
+            }else{ 
+                setStatus("uploading") 
                 setLoader("spinner-border spinner-border-sm me-2")
                 setDisable(true)
                 const ready = await checkUser(100)
@@ -66,7 +67,6 @@ const TaskItem = (props) => {
             
                     const formData = new FormData();
                     formData.append('file', pdfFile);
-            
                     const response = await fetch(`${llm_host}/uploadfile/${btnRef}/${Sid}`, {
                         method: "POST",
                         body:formData
@@ -99,6 +99,7 @@ const TaskItem = (props) => {
                 }
             }
         }
+        setStatus("")
     };
   return (
     <div className='my-3'>
@@ -120,8 +121,9 @@ const TaskItem = (props) => {
                     <form encType='multipart/form-data' onSubmit={ submitDOC } className='form form-control-sm'>
                         <input type="file" name='file' accept={`.${btnRef}`} onChange={ handleDOCChange } />
                         <span className={loader} role="status" aria-hidden="true"></span>
-                        <input type="submit" value="Submit" className={`btn btn-${btnClass} btn-sm`} disabled={disable} />
+                        <input type="submit" value="Submit" className={`btn btn-${btnClass} btn-sm`} disabled={disable} />           
                     </form>
+                    <center><p style={{fontSize:'12px'}}>{status}</p></center> 
                 </div>
             </div>
     </div>

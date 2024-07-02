@@ -4,7 +4,8 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import CSVLoader, UnstructuredExcelLoader
 from langchain.text_splitter import CharacterTextSplitter
-from Tokens import calTokens
+from static.Tokens import calEtokens
+
 
 
 class Document:
@@ -84,7 +85,7 @@ class handleSS:
             # load it into Chroma
             db = FAISS.from_documents(chunks, embedding_function)
             pkl = db.serialize_to_bytes()
-            eToken = calTokens(chunks)
+            eToken = calEtokens(file)
             return pkl,eToken
 
 
