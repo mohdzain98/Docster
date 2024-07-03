@@ -5,7 +5,7 @@ const tasks=[
         imgSrc:'pdf.png',
         text:'white',
         bg:'primary',
-        ol:['I can extract text from your PDF','I can Q&A on your PDF','I can create summary of your PDF'],
+        ol:['Extract text from PDF','Q and A on PDF','Summarize PDF'],
         type:"application/pdf",
         btnHref:'pdf',
         btnClass:'danger'
@@ -15,7 +15,7 @@ const tasks=[
         imgSrc:'txt.png',
         text:'white',
         bg:'success',
-        ol:['I can extract text from your TXT','I can Q&A on your TXT','I can create summary of your TXT'],
+        ol:['Extract Text','Find Details','Summarize your TXT'],
         type:"text/plain",
         btnHref:'txt',
         btnClass:'primary'
@@ -25,7 +25,7 @@ const tasks=[
         imgSrc:'csv.png',
         text:'white',
         bg:'danger',
-        ol:['I can Q&A on your CSV File','I can give you key points from CSV','I can do calculations from this CSV'],
+        ol:['Q and A on CSV File','Find key points from CSV','Perfomrm calculations on CSV'],
         type:"text/csv",
         btnHref:'csv',
         btnClass:'success'
@@ -35,17 +35,37 @@ const tasks=[
         imgSrc:'excel.png',
         text:'black',
         bg:'warning',
-        ol:['I can Q&A on your Excel File','I can give you key points from Excel','I can do calculations from this Excel'],
+        ol:['Find Insights from Excel File','Find key points from Excel','Perform calculations on Excel'],
         type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         btnHref:'xlsx',
         btnClass:'info'
+    },
+    {
+        taskName:'PPTX',
+        imgSrc:'ppt.jpg',
+        text:'white',
+        bg:'dark',
+        ol:['Extract text from PPT','Q and A on PPT','Find Vital Knowledge'],
+        type:"application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        btnHref:'pptx',
+        btnClass:'danger'
+    },
+    {
+        taskName:'DOCX',
+        imgSrc:'word.jpg',
+        text:'white',
+        bg:'secondary',
+        ol:['Extract text from Word file','Q and A on Word','Rapidly Find essential Facts'],
+        type:"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        btnHref:'docx',
+        btnClass:'danger'
     },
     {
         taskName:'SQL',
         imgSrc:'sql.png',
         text:'black',
         bg:'info',
-        ol:['I can Q&A on your SQL File','I can create Query on this File','I can retrieve documents from SQL'],
+        ol:['Q and A on on SQL File','Create Query on SQL File','Retrieve documents from SQL'],
         type:"",
         btnHref:'sql',
         btnClass:'warning'

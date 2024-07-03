@@ -28,6 +28,8 @@ const Faq = () => {
                     <li><strong>TXT : </strong>Any type of text file</li>
                     <li><strong>CSV : </strong>Any type of CSV file</li>
                     <li><strong>Excel : </strong>Any type of Excel file</li>
+                    <li><strong>PPTX : </strong> On text in PPT file</li>
+                    <li><strong>DOCX : </strong>On Text in word file</li>
                     <li><strong>SQL : </strong>SQL file of Sqlite and MySQL DB</li>
                 </ul>
                 </div>

@@ -1,15 +1,10 @@
-import React, {useEffect, useRef} from 'react'
+import React from 'react'
 import '../Styling/policy.css'
 
 const Privacy = () => {
-  const ref = useRef(null)
 
-  useEffect(()=>{
-    ref.current.scrollIntoView({ behavior: 'smooth' });
-  },[])
   return (
     <>
-    <div ref={ref} style={{marginTop:'-5%', marginBottom:'8%'}}></div>
     <div className='container pb-4' id='privacy' style={{marginTop:'-3%', padding:'0 5%'}}>
     <center><h1 className='mb-4 fw-bold'>Privacy Policy</h1></center>
     <p className='text-end' style={{fontSize:'12px'}}><strong>Effective Date:</strong>  June 21, 2024</p>
@@ -26,7 +21,7 @@ const Privacy = () => {
         <p>We may collect personal identification information, such as your name, email address, and other contact details when you register on our site or use our services, so that we can maintain you account.</p>
 
         <h5>B. Document Data:</h5>
-        <p>When you upload documents (PDF, TXT, CSV, Excel, SQL files), we does not collect and process the data contained in these documents neither we store your document to our servers , rather we convert the content in vector store which can only be understand by Large Language Model to provide you with our services.</p>
+        <p>When you upload documents (PDF, TXT, CSV, Excel,PPT, Word, SQL files), we does not collect and process the data contained in these documents neither we store your document to our servers , rather we convert the content in vector store which can only be understand by Large Language Model to provide you with our services.</p>
 
         {/* <h5>C. Usage Data:</h5>
         <p>We collect information about how you interact with our service, such as the features you use and the actions you take.</p> */}

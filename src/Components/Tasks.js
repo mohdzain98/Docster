@@ -8,6 +8,7 @@ const Tasks = (props) => {
     const {host, showAlert, llm_host} = props.prop
   return (
     <>
+    <div style={{padding:'2%'}}>
     <div className='container' id='task' style={{marginTop:"50px", marginBottom:"50px"}}>
         <center>
         <div className="text">Documents at a Glance</div>
@@ -35,6 +36,7 @@ const Tasks = (props) => {
             })}
 
         </div>
+    </div>
     </div>
     </>
   )

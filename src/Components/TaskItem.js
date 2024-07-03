@@ -2,20 +2,20 @@ import React,{ useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../index.css'
 import { useDispatch } from 'react-redux'
-// import { bindActionCreators } from 'redux'
-// import {actionCreator} from '../State/index'
 import { v4 as uuidv4 } from 'uuid';
 import { changeFile, setSID } from "../State/action-creator";
 
 
 const TaskItem = (props) => {
-    let {taskName, imgSrc, text, bg, ol, btnRef, btnClass,alert, host, llm_host, type} = props;
+    let {taskName, imgSrc, ol, btnRef,alert, host, llm_host, type} = props;
     const [pdfFile, setPdfFile] = useState(null);
     const [loader,setLoader] = useState("")
     const [disable,setDisable] = useState(null)
     const navigate= useNavigate();
     const dispatch = useDispatch()
-    const [status, setStatus] = useState("")
+    const [status, setStatus] = useState(0)
+    const [bar, setBar] = useState("invisible")
+
 
     const handleDOCChange = (event) => {
         setPdfFile(event.target.files[0]);
@@ -45,17 +45,18 @@ const TaskItem = (props) => {
     const submitDOC = async (event) => {
         event.preventDefault();
         const Sid = uuidv4()
+        setBar("visible")
+        setStatus(10)
         if(!localStorage.getItem('token')){
             navigate('/login')
             alert("Kindly Login First","primary")
         }else{
-            setStatus("checking file type")
+            setStatus(50)
             if(pdfFile === null){
                 alert("kindly select file","danger")
             }else if(pdfFile.type !== type){
                 alert("Kindly Select Appropriate File","danger")
-            }else{ 
-                setStatus("uploading") 
+            }else{  
                 setLoader("spinner-border spinner-border-sm me-2")
                 setDisable(true)
                 const ready = await checkUser(100)
@@ -72,6 +73,7 @@ const TaskItem = (props) => {
                         body:formData
                     })
                     if(response.status === 200){
+                        setStatus(70)
                         const ans = await response.json()
                         setLoader("")
                         setDisable(false)
@@ -100,10 +102,11 @@ const TaskItem = (props) => {
             }
         }
         setStatus("")
+        setBar("invisible")
     };
   return (
-    <div className='my-3'>
-        <div className={`card text-${text} bg-${bg} mb-3 mx-1`}>
+    <div className='my-3 pt-4' id='task'>
+        {/* <div className={`card text-${text} bg-${bg} mb-3 mx-1`}>
                 <img src={require(`../Assets/${imgSrc}`)} className="card-img-top" alt="altpdf"/>
                 <div className="card-body">
                     <center><h5 className="card-title">{taskName}</h5>
@@ -117,13 +120,44 @@ const TaskItem = (props) => {
                                 <li key={index}>{item}</li>
                             ))}
                         </ul>
-                    </p>
+                    </p> 
                     <form encType='multipart/form-data' onSubmit={ submitDOC } className='form form-control-sm'>
-                        <input type="file" name='file' accept={`.${btnRef}`} onChange={ handleDOCChange } />
+                        <input type="file" name='file' accept={`.${btnRef}`} onChange={ handleDOCChange }/>
                         <span className={loader} role="status" aria-hidden="true"></span>
                         <input type="submit" value="Submit" className={`btn btn-${btnClass} btn-sm`} disabled={disable} />           
                     </form>
                     <center><p style={{fontSize:'12px'}}>{status}</p></center> 
+                </div>
+            </div> */}
+            <div className='box'>
+                <div className='row'>
+                    <div className='image-container'>
+                    <img src={require(`../Assets/${imgSrc}`)}  alt="altpdf" />
+                    </div>
+                    <div class='data'>
+                        <h4 style={{textShadow:'0px 4px 4px #000000'}}>{taskName}</h4>
+                        <p style={{width:'150px',height:'2px',backgroundColor:'black'}}></p>
+                        <p className='define'>Upload and Chat With AI</p>
+                    </div>
+                </div>
+                <div className='footer'>
+                <p className="text-muted">
+                                <ul style={{fontSize:'14px'}}>
+                                    {ol.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </p>
+                    <form encType='multipart/form-data' onSubmit={ submitDOC } className='form form-control-sm'>
+                        <input type="file" name='file' accept={`.${btnRef}`} onChange={ handleDOCChange } className='btn small'/>
+                        <span className={loader} role="status" aria-hidden="true"></span>
+                        <button type="submit" className={`btn btn-outline-dark`} disabled={disable} style={{float:'right', width:'50px',height:'27px'}}>
+                                <i className="fa-solid fa-arrow-right"></i>
+                            </button>         
+                    </form>
+                </div>
+                <div class={`progress my-2 mx-4 ${bar}`}>
+                <div class="progress-bar" role="progressbar" style={{width: `${status}%`}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{status}%</div>
                 </div>
             </div>
     </div>

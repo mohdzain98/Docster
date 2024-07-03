@@ -27,7 +27,7 @@ const Footer = () => {
                 <p className='text-center' > &copy; 2024 Docschat</p>
             </div>
             <div>
-                <p className='text-center'>Updated on : 28 June, 2024  V: 1.3 <Link to={'/visitors'}>.</Link></p>
+                <p className='text-center'>Updated on : 03 July, 2024  V: 1.4</p>
             </div>
         </div>
     </div>

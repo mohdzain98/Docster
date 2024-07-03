@@ -18,6 +18,7 @@ import Faq from './Components/Faq';
 import Forgot from './Components/Forgot';
 import Terms from './Components/Terms';
 import Cookies from './Components/Cookies';
+import Scrooltotop from './Components/Scrooltotop';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -56,6 +57,7 @@ function App() {
     <div>
     <UserState host={{host}}>
     <Router>
+    <Scrooltotop/>
     <Navbar prop={{host,Logdin,showAlert}}/>
     <Alert alert={alert}/>
     <Routes>

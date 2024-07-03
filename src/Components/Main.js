@@ -10,7 +10,7 @@ const Main = (props) => {
   const type = useSelector(state => state.type)
   const sid = useSelector(state => state.sid)
   const [docType, setDocType] = useState('Documents');
-  const docTypes = ['Documents','PDF', 'Text', 'CSV', 'Excel', 'SQL'];
+  const docTypes = ['Documents','PDF', 'Text', 'CSV', 'Excel','PPT','Word','SQL'];
   const currentIndex = useRef(0);
 
   useEffect(() => {
