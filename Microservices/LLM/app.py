@@ -248,7 +248,7 @@ def chatpptx(sid):
     req = request.json
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
-    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'))
+    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
     retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
     chains = chain(retriever, llm)
     with get_openai_callback() as cb:
@@ -262,7 +262,7 @@ def chatdocx(sid):
     req = request.json
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
-    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'))
+    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
     retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
     chains = chain(retriever, llm)
     with get_openai_callback() as cb:
