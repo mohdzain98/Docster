@@ -1,5 +1,6 @@
 from pdftxt import handlePDF, handleTXT, Embed
 from spreadsheet import handleSS
+from files.pptword import HandleXML, Embedpw
 from static.Tokens import calEtokens
 import pandas as pd
 from sql import sequel
@@ -180,3 +181,52 @@ class Initsql:
 
     def initret(self):
         return self.ready,self.cToken, self.file, self.name
+    
+
+class Initppt:
+    def __init__(self):
+        self.eToken = 0
+        self.db=""
+        self.ready=False
+
+    def initdb(self, file_type, name):
+        if(str(file_type) == 'pptx'):
+            file = HandleXML(f'tmp/{name}.pptx')
+            ppt = file.extract_text_from_ppt()
+            if(calEtokens(ppt)<5000):
+                db,eToken = Embedpw.getEmbeddings(ppt)
+                self.eToken = eToken
+                self.db=db
+                self.ready=True
+            else:
+                self.eToken=0
+                self.db=""
+            Free.doFree(f'tmp/{name}.pptx')
+
+    def initret(self):
+        return self.ready,self.eToken, self.db
+    
+
+class Initdocx:
+    def __init__(self):
+        self.eToken = 0
+        self.db=""
+        self.ready=False
+
+    def initdb(self, file_type, name):
+        if(str(file_type) == 'docx'):
+            file = HandleXML(f'tmp/{name}.docx')
+            word = file.extract_text_from_docx()
+            if(calEtokens(word)<5000):
+                db,eToken = Embedpw.getEmbeddings(word)
+                self.eToken = eToken
+                self.db=db
+                self.ready=True
+            else:
+                self.eToken=0
+                self.db=""
+            Free.doFree(f'tmp/{name}.docx')
+
+    def initret(self):
+        return self.ready,self.eToken, self.db
+            

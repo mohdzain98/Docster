@@ -3,8 +3,7 @@ from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 load_dotenv()
 from langchain_openai import ChatOpenAI,OpenAIEmbeddings
-from langchain.chains.question_answering import load_qa_chain
-from Initialize import Init,Initxt, Initcsv, Initxlsx, Initsql
+from Initialize import Init,Initxt, Initcsv, Initxlsx, Initsql, Initppt, Initdocx
 from langchain_community.utilities import SQLDatabase
 from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
 from langchain.chains import create_sql_query_chain
@@ -60,7 +59,7 @@ def uploadFile(name):
 
 @app.route('/')
 def hello_world():
-    return jsonify({"status":status,"Value":'LLM Server Running Successsfully',"Version":1.4})
+    return jsonify({"status":status,"Value":'LLM Server Running Successsfully',"Version":1.5})
 
 @app.route('/uploadfile/<file_type>/<sid>',methods=['POST','GET'])
 @cross_origin()
@@ -142,6 +141,36 @@ def uploaded(file_type,sid):
             return success
         else:
             return fail
+        
+    elif str(file_type) == 'pptx':
+        upload = uploadFile(f'{name}.pptx')
+        if(upload):
+            file=Initppt()
+            file.initdb(file_type,name)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
+            return success
+        else:
+            return fail
+        
+    elif str(file_type) == 'docx':
+        upload = uploadFile(f'{name}.docx')
+        if(upload):
+            file=Initdocx()
+            file.initdb(file_type,name)
+            ready,eToken,db = file.initret()
+            if(ready):
+                redis_client.hset(sid, 'db', db)
+                redis_client.hset(sid, 'eToken', eToken)
+            else:
+                return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
+            return success
+        else:
+            return fail
     
 
 @app.route('/chat/default/default',methods=['POST','GET'])
@@ -206,6 +235,34 @@ def chatxlsx(sid):
     ques = req.get('query')
     eToken = int(redis_client.hget(sid, 'eToken'))
     db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
+    return (res)
+
+@app.route('/chat/pptx/<sid>', methods=['POST', 'GET'])
+def chatpptx(sid):
+    req = request.json
+    ques = req.get('query')
+    eToken = int(redis_client.hget(sid, 'eToken'))
+    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'))
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    with get_openai_callback() as cb:
+        result = chains.invoke(ques)
+    total = cb.prompt_tokens + eToken + cb.completion_tokens
+    res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
+    return (res)
+
+@app.route('/chat/docx/<sid>', methods=['POST', 'GET'])
+def chatdocx(sid):
+    req = request.json
+    ques = req.get('query')
+    eToken = int(redis_client.hget(sid, 'eToken'))
+    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'))
     retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
     chains = chain(retriever, llm)
     with get_openai_callback() as cb:
