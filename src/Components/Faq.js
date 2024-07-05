@@ -22,7 +22,7 @@ const Faq = () => {
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
-                Docschat Support five types of Documents 
+                Docschat Support Seven types of Documents 
                 <ul>
                     <li><strong>PDF : </strong>Any type of PDF files: text, images or mixed</li>
                     <li><strong>TXT : </strong>Any type of text file</li>
@@ -52,7 +52,7 @@ const Faq = () => {
                 </button>
                 </h2>
                 <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                <div className="accordion-body">we do not collect and process the data contained in these documents neither we store your document to our servers , rather we convert the content in vector store which can only be understand by Large Language Model to provide you with our services.</div>
+                <div className="accordion-body">We do not collect and process the data contained in these documents neither we store your document to our servers , rather we convert the content in vector store which can only be understand by Large Language Model to provide you with our services.</div>
                 </div>
             </div>
         </div>

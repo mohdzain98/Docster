@@ -19,6 +19,7 @@ import Forgot from './Components/Forgot';
 import Terms from './Components/Terms';
 import Cookies from './Components/Cookies';
 import Scrooltotop from './Components/Scrooltotop';
+import Upcoming from './Components/Upcoming';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -55,7 +56,7 @@ function App() {
   return (
     <>
     <div>
-    <UserState host={{host}}>
+    <UserState host={{host, showAlert}}>
     <Router>
     <Scrooltotop/>
     <Navbar prop={{host,Logdin,showAlert}}/>
@@ -73,6 +74,7 @@ function App() {
         <Route exact path='/pricing' element={<Pricing/>}></Route>
         <Route exact path='/faq' element={<Faq/>}></Route>
         <Route exact path='/in/terms' element={<Terms />}></Route>
+        <Route exact path='/upcomings' element={<Upcoming />}></Route>
         <Route exact path='/forgot-password' element={<Forgot prop={{host, showAlert}} />}></Route>
     </Routes>
     <Cookies/>

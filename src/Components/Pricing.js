@@ -1,7 +1,12 @@
 import React from 'react'
 import '../Styling/pricing.css'
+import { useNavigate} from 'react-router-dom'
 
 const Pricing = () => {
+  const navigate = useNavigate()
+  const handleFree = ()=>{
+    navigate('/')
+  }
   return (
     <>
     <div className='container' id='pricing'>
@@ -16,6 +21,7 @@ const Pricing = () => {
             <li>File size of 5000 words</li>
             <li>Less Accurate Answers</li>
         </ul>
+        <center><button className='buy btn btn-warning' onClick={handleFree}>Get Started</button></center>
       </div>
       <div className='box p-4'>
         <h4 className='mt-2 fw-bold fs-6'>Pro</h4>

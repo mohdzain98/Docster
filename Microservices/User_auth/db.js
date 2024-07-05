@@ -6,9 +6,8 @@ const mongoUri = process.env.REACT_APP_MDB
 const connectToMongo = async () =>{
     try{
         await mongoose.connect(mongoUri)
-        console.log('mongo connected')
     }catch(error){
-        console.log('error'+error)
+        console.log('not working')
     }
 }
 module.exports = connectToMongo;

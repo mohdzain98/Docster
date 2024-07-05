@@ -15,7 +15,7 @@ const Tasks = (props) => {
         <div className="underline"></div>
         </center>
         <div className='row' style={{marginTop:"30px"}}>
-            {tasks.map((element)=>{
+            {tasks.map((element,index)=>{
                 return (
                     <div className='col-md-4 col-xs-12'>
                         <TaskItem

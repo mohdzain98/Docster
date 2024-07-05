@@ -26,7 +26,6 @@ router.post('/getmore',fetchuser, async (req,res) => {
         success=true
         res.json({success})
     }catch(error){
-        console.error(error)
         res.status(500).send('internal server error')
     }
 })

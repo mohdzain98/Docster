@@ -28,6 +28,7 @@ const Navbar = (props) => {
         dispatch(changeFile("default",()=>{}))
         dispatch(setSID("default",()=>{}))
         navigate("/")
+        showAlert('Logged Out','primary')
         rollNavBack()
         Logdin()
     }
@@ -120,7 +121,7 @@ const Navbar = (props) => {
         <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
             <Link className="navbar-brand" to="/">
-                <img src="favicon-32x32.png" alt="" width="30" height="30"/>
+                <img src="apple-touch-icon.ico" alt="" width="30" height="30"/>
                 </Link>
                 <Link className="navbar-brand" to="/">Docschat</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ref={ref}>
@@ -146,8 +147,8 @@ const Navbar = (props) => {
                         
                     </ul>
                     {( !localStorage.getItem('token')) ?<form className='d-flex'>
-                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/login' ?"none":"initial"}`}} className='btn btn-primary mx-1' role='button' to="/login" onClick={rollNavBack}>Login</Link>
-                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/signup' ?"none":"initial"}`}} className='btn btn-primary mx-1' role='button' to='/signup' onClick={rollNavBack}>Signup</Link>
+                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/login' ?"none":"initial"}`}} className='btn btn-primary btn-sm mx-1' role='button' to="/login" onClick={rollNavBack}>Login</Link>
+                    <Link style={{display: `${location.pathname === '/' || location.pathname === '/signup' ?"none":"initial"}`}} className='btn btn-primary btn-sm mx-1' role='button' to='/signup' onClick={rollNavBack}>Signup</Link>
                     </form>:
                         <div className="btn-group">
                             <button type="button" className="btn btn-secondary dropdown-toggle mx-2 me-2" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">

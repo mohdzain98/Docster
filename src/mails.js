@@ -1,7 +1,7 @@
 const templates ={
     welcome:`
             <div class='container' id="template" style="padding: 1rem;">
-    <div class='box' style="width: auto; position:relative; background: ghostwhite; box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1); padding: 30px;">
+    <div class='box' style="width: auto; position:relative; background: ghostwhite; box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1); padding: 25px;">
         <div>
                 <center><img src="https://drive.google.com/thumbnail?id=1g8bbF8UZo_ylH4vSbGTKS2oOemw-7rYO&sz=w1000" width='256px'></center>
 
@@ -11,7 +11,7 @@ const templates ={
             <p>Don't forget to give <a href="https://docschat.in/contactus">Feedback</a> or if you face any issue kindly report <a href="https://docschat.in/contactus">here</a></p>
         </div>
     </div>
-    <div id="footer" class="box" style="background-color: lightgrey; width: auto; position:relative; box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1); padding: 30px;">
+    <div id="footer" class="box" style="background-color: lightgrey; width: auto; position:relative; box-shadow: 0 25px 25px rgba(0, 0, 0, 0.1); padding: 25px;">
             <p>Best Regards</p>
             <p style="margin-top: -1%;">Docschat</p>
             <ul style="list-style: none; padding: 0;">

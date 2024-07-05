@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router();
-// const User = require('../models/User')
+const Like = require('../models/Like')
 const Access = require('../models/Acess')
 const {body, validationResult} = require('express-validator')
 
@@ -29,7 +29,21 @@ router.post('/giveaccess',[
         success=true
         res.json({success,user})
     }catch(err){
-        console.error(err.message)
+        res.status(500).send("Some Error Occured")
+    }
+})
+
+router.put('/likes',async(req,res)=>{
+    let success=false
+    try{
+        const liked = await Like.updateOne({}, { $inc: { count: 1 } }, { new: true })
+        if(liked){
+            success=true
+            res.json({success})
+        }else{
+            res.status(400).json({success})
+        }
+    }catch(err){
         res.status(500).send("Some Error Occured")
     }
 })

@@ -11,7 +11,7 @@ const Home = (props) => {
     <Main prop={{login, Logdout}}/>
     <Info/>
     <Tasks prop={{host, showAlert, llm_host}}/>
-    <Footer/>
+    <Footer prop={{host}}/>
     </>
   )
 }

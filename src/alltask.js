@@ -65,7 +65,7 @@ const tasks=[
         imgSrc:'sql.png',
         text:'black',
         bg:'info',
-        ol:['Q and A on on SQL File','Create Query on SQL File','Retrieve documents from SQL'],
+        ol:['Q and A on on SQL File','Create Query on SQL File','Retrieve documents from SQL','MySQL, Sqlite and PostgreSql Accepted'],
         type:"",
         btnHref:'sql',
         btnClass:'warning'

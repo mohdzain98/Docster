@@ -147,7 +147,7 @@ const Forgot = (props) => {
       <form onSubmit={otp ===""?handleSubmit:verifyotp}>
         <div className="mb-3">
             <label for="exampleInputEmail1" class="form-label">Enter your Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Email' value={email} onChange={(e) =>setEmail(e.target.value)}/>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder='Email' value={email} onChange={(e) =>setEmail(e.target.value)} required/>
         </div>
         <div className={`mb-3 ${otptf}`} >
             <input type="number" class="form-control" id="otp" aria-describedby="otpHelp" placeholder='Enter OTP' value={otp} onChange={otpChange}/>
@@ -166,7 +166,7 @@ const Forgot = (props) => {
       <form onSubmit={changePass}>
         <div className="mb-3">
             <label for="password" class="form-label">New Password</label>
-            <input type="password" class="form-control" aria-describedby="passhelp" placeholder='Create Password' name='pass' value={newpass.pass} onChange={passChange}required/>
+            <input type="password" class="form-control" aria-describedby="passhelp" placeholder='Create Password' name='pass' value={newpass.pass} onChange={passChange} required/>
         </div>
         <div className="mb-3">
             <label for="cpassword" class="form-label">Confirm Password</label>

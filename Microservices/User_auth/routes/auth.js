@@ -6,9 +6,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const fetchuser = require('../middleware/fetchuser')
 const Access = require('../models/Acess')
+require('dotenv').config()
 
 
-const JWT_SECRET = 'welcometodocster'
+const JWT_SECRET = process.env.REACT_APP_JWTS
 
 router.post('/existuser',async(req,res)=>{
     let success = true;
@@ -65,7 +66,6 @@ router.post('/createuser',[
         success = true;
         res.json({success, authToken})
     }catch(err){
-        console.error(err.message)
         res.status(500).send("Some Error Occured")
     }
 })
@@ -99,7 +99,6 @@ router.post('/login',[
         success = true
         res.json({success, authToken})
     }catch(error){
-        console.error(error)
         res.status(500).send("Internal server occured")
     }
 })
@@ -111,7 +110,6 @@ router.post('/getuser',fetchuser, async (req,res) => {
         const user = await User.findById(userId).select("-password")
         res.send(user)
     }catch(error){
-        console.error(error)
         res.status(500).send('internal server error')
     }
 })
@@ -133,7 +131,6 @@ router.post('/glogin', async (req,res) => {
         success = true
         res.json({success, authToken})
     }catch(error){
-        console.error(error)
         res.status(500).send("Internal server occured")
     }
 })
@@ -145,7 +142,6 @@ router.post('/getuser',fetchuser, async (req,res) => {
         const user = await User.findById(userId).select("-password")
         res.send(user)
     }catch(error){
-        console.error(error)
         res.status(500).send('internal server error')
     }
 })
@@ -172,7 +168,6 @@ router.put('/updatect', fetchuser, async(req,res)=>{
         const useru = await User.findById(req.user.id).select("-password")
         res.send(useru)
     }catch(error){
-        console.error(error.message)
         res.status(500).send("Internal Server Error")
     }
 })
@@ -194,7 +189,6 @@ router.put('/updatemt/:id',fetchuser, async(req,res) => {
         user = await User.findByIdAndUpdate(req.params.id, {maxToken:newVal.maxToken},{new:true})
         res.json({user})
     }catch(error){
-        console.error(error.message)
         res.status(500).send("Internal Server Error")
     }
 })
@@ -231,7 +225,6 @@ router.post('/checkuser',fetchuser,async(req,res) => {
         }
         res.json({curTokens,ready})
     }catch(error){
-        console.error(error.message)
         res.status(500).send("Internal Server Error")
     }
 })
@@ -250,7 +243,6 @@ router.delete('/deleteuser/:id',fetchuser, async(req,res) =>{
         user = await User.findByIdAndDelete(req.params.id)
         res.json({"success":"User has been deleted"})
     }catch(error){
-        console.error(error.message)
         res.status(500).send("Internal Server Error")
     }
 })

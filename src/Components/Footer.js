@@ -1,8 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../Styling/footer.css'
+import { useMediaQuery } from 'react-responsive'
 
-const Footer = () => {
+const Footer = (props) => {
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+    const [thumbs, setThumbs] = useState(localStorage.getItem('thumbs') || 'regular')
+    const [info, setInfo] = useState("")
+    const {host} = props.prop
+
+    const changeThumb = async()=>{
+        if(thumbs === 'regular'){
+            setThumbs('solid')
+            localStorage.setItem('thumbs','solid')
+            setInfo(' Thankyou for your support')
+            setTimeout(()=>{
+                setInfo("")
+            },2000)
+            try{
+                await fetch(`${host}/api/access/likes`,{
+                    method:'PUT'
+                })
+            }catch(err){}
+        }else{
+            setThumbs('regular')
+            localStorage.setItem('thumbs','regular')
+            setInfo(' Sorry! If you found it Unuseful')
+            setTimeout(()=>{
+                setInfo("")
+            },2000)
+        }
+    }
   return (
     <>
     <div className='text-black pt-4' style={{background:'#e0e0e0'}}>
@@ -16,18 +44,25 @@ const Footer = () => {
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Feedback</Link></button></li>
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Report an Issue</Link></button></li>
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/faq'} style={{textDecoration:'none', color:'black'}}>FAQs</Link></button></li>
+                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/upcomings'} style={{textDecoration:'none', color:'black'}}>Upcoming Features</Link></button></li>
+                        
                     </ul>
                 </div>
+                <hr/>
+                <div>
+                <p className='ms-3' style={{fontSize:'14px'}}>If you found anything useful, kindly show support by clicking the like button <button className='btn btn-default' onClick={changeThumb}style={{color:'blue'}}> <i className={`fa-${thumbs} fa-thumbs-up fs-2`}></i></button>{info}</p>
+                </div>
             </div>
+            
         </div>
     </div>
     <div className='text-white bg-dark pt-3'>
         <div className="container" id='copy'>
-            <div>
+            <div style={isTabletOrMobile?{marginTop:'-2%'}:{}}>
                 <p className='text-center' > &copy; 2024 Docschat</p>
             </div>
-            <div>
-                <p className='text-center'>Updated on : 03 July, 2024  V: 1.4</p>
+            <div style={isTabletOrMobile?{marginTop:'-3%'}:{}}>
+                <p className='text-center'>Updated on : 05 July, 2024  V: 1.4</p>
             </div>
         </div>
     </div>

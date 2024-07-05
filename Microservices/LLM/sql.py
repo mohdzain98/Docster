@@ -66,6 +66,7 @@ class sequel:
         mysql_sql = re.sub(r'\bUNLOCK TABLES\b;', '', mysql_sql, flags=re.IGNORECASE)
         mysql_sql = re.sub(r"ALTER\s+TABLE\s+(\w+)\s+ADD\s+CONSTRAINT\s+(\w+)\s+FOREIGN\s+KEY\s+\(\s*(\w+)\s*\)\s+REFERENCES\s+(\w+)\s*\(\s*(\w+)\s*\)\s+ON\s+DELETE\s+(NO ACTION|CASCADE|SET NULL|SET DEFAULT)\s+ON\s+UPDATE\s+(NO ACTION|CASCADE|SET NULL|SET DEFAULT)\s*;",r"/* SQLite does not support ALTER TABLE ADD CONSTRAINT */",mysql_sql, flags=re.IGNORECASE)
         mysql_sql = re.sub(r"N'((?:[^']|'')*)'", self.remove_n_prefix, mysql_sql, flags=re.IGNORECASE)
+        mysql_sql = re.sub(r'\\c\s+\w+;','', mysql_sql, flags=re.IGNORECASE)
         # Replace NOW() with CURRENT_TIMESTAMP
         mysql_sql = re.sub(r'\bNOW\(\)\b', 'CURRENT_TIMESTAMP', mysql_sql, flags=re.IGNORECASE)
 

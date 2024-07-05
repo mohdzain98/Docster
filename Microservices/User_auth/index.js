@@ -17,11 +17,11 @@ app.use('/api/mail',require('./routes/mail'))
 
 app.use('/',(req,res)=>{
   return res.json({
-    message:"Wecome to Docster user auth microservice",
-    version:"1.3"
+    message:"Wecome to Docschat user auth microservice",
+    version:"1.4"
   })
 })
 
 app.listen(port, () => {
-  console.log('Docster Microservice Running Successfully on port ***1')
+  console.log('Docschat Microservice Running Successfully on port ***1')
 })
