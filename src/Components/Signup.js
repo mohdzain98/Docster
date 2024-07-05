@@ -226,7 +226,7 @@ const Signup = (props) => {
           </div> 
           <input className="me-1 my-3 ms-5" type="checkbox" onClick={showPassword}/>Show Password
           <div className="submit-container">
-          <button className="submit" type="submit">
+          <button className="submit" type="submit" disabled={cred.name===""|| cred.email===""||cred.password===""||cred.cpassword===""}>
             Signup
           </button>
           </div>

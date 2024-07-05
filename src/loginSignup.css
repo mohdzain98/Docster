@@ -113,6 +113,7 @@
   }
 
 .submit:hover {background-color: #3e8e41}
+.submit:disabled{cursor: auto;background-color: #2a201c;}
 
 .submit:active {
   background-color: #e90a0a;

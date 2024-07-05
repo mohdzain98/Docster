@@ -145,7 +145,7 @@ const Login = (props) => {
           </div> 
           <p className='mt-2 mb-4' style={{marginLeft:'35px'}}><Link to='/forgot-password' >forgot passsword?</Link></p>
           <div className="submit-container mt-4">
-          <button className="submit" type="submit">
+          <button className="submit" type="submit" disabled={cred.email === "" || cred.password === ""}>
             <span className={loader} role="status" aria-hidden="true"></span>
             Login
           </button>
