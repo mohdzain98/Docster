@@ -12,6 +12,8 @@ Docschat is an innovative project designed to revolutionize how users interact w
 - TXT
 - CSV
 - EXCEL
+- PPTX
+- Word
 - SQL
 
 ## Working
@@ -24,3 +26,15 @@ Docschat is an innovative project designed to revolutionize how users interact w
 - Efficiency: Quickly locate specific information within extensive documents.
 - Accessibility: Make document interactions more user-friendly and accessible to non-experts.
 - Accuracy: Ensure the accuracy of information through sophisticated language understanding and context awareness.
+
+## Architecture
+DocsChat is built using a microservices architecture, with two primary microservices:
+- ### User Authentication Service
+  - Manages user registration, login, and authentication
+  - Ensures secure access to the Docschat platform
+  - Handles session management and token-based authentication
+- ### LLM (Large Language Model) Service
+  - Processes user queries and interacts with various document types
+  - Leverages advanced language models to understand and respond to user inputs
+  - Performs text extraction, data analysis, and SQL query execution based on document type
+  
