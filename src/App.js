@@ -28,7 +28,7 @@ function App() {
   const sid = useSelector(state => state.sid)
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
-  console.log(host,llm_host)
+  
   useEffect(()=>{
     if(localStorage.getItem('token')){
       setLogin(false)

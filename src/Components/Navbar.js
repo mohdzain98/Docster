@@ -19,7 +19,7 @@ const Navbar = (props) => {
     const dispatch = useDispatch()
     let location = useLocation();
     const to = process.env.REACT_APP_TO
-    console.log(to)
+
     
     const handleLogout =()=>{
         localStorage.removeItem('token')

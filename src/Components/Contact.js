@@ -15,7 +15,6 @@ const Contact = (props) => {
     const [iloader,setIloader] = useState("")
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const to = process.env.REACT_APP_TO
-    console.log(to)
 
     const issueChange = (e)=>{
         setIssue({...issue, [e.target.name]:e.target.value})
