@@ -19,6 +19,7 @@ const Pricing = () => {
             <li>No Document Limit</li>
             <li>No Chat Limit</li>
             <li>File size of 5000 words</li>
+            <li>No Chat Memory</li>
             <li>Less Accurate Answers</li>
         </ul>
         <center><button className='buy btn btn-warning' onClick={handleFree}>Get Started</button></center>
@@ -32,6 +33,7 @@ const Pricing = () => {
             <li>No Document Limit</li>
             <li>No Chat Limit</li>
             <li>No File Size Limit</li>
+            <li>Inbuilt Chat Memory</li>
             <li>More Accurate Answers using Agents</li>
         </ul>
         <center><button className='buy btn btn-warning' disabled>Coming Soon</button></center>
