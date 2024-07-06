@@ -16,7 +16,7 @@ from langchain.memory import ConversationSummaryBufferMemory
 from langchain_community.callbacks.manager import get_openai_callback
 from langchain_community.vectorstores import FAISS
 from static.Filename import filename
-from static.Chain import chain
+from static.Chain import chain, qchain
 import os
 import traceback
 import redis
@@ -186,6 +186,18 @@ def chat():
     res = jsonify({"result":result,"cToken":cToken,"gToken":gToken,"total":cToken+gToken})
     return (res)
 
+@app.route('/getques/<sid>',methods=['POST', 'GET'])
+def aiques(sid):
+    db = FAISS.deserialize_from_bytes(embeddings=OpenAIEmbeddings(), serialized=redis_client.hget(sid, 'db'),allow_dangerous_deserialization=True)
+    retriever = db.as_retriever(search_type='mmr',search_kwargs={'k':3})
+    chains = chain(retriever, llm)
+    content = chains.invoke('Give me content of the document')
+    q_chain = qchain(llm)
+    ques = q_chain.invoke(content)
+    res = jsonify({"result":ques})
+    return (res)
+
+
 @app.route('/chat/pdf/<sid>', methods=['POST', 'GET'])
 def chatpdf(sid):
     req = request.json
@@ -225,7 +237,6 @@ def chatcsv(sid):
     with get_openai_callback() as cb:
         result = chains.invoke(ques)
     total = cb.prompt_tokens + eToken + cb.completion_tokens
-    print(eToken, cb.prompt_tokens,cb.completion_tokens)
     res = jsonify({"result":result,"cToken":cb.prompt_tokens+eToken,"gToken":cb.completion_tokens,"total":total})
     return (res)
 

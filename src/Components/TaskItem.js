@@ -1,8 +1,9 @@
-import React,{ useState} from 'react'
+import React,{ useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../index.css'
 import { useDispatch } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid';
+import userContext from '../Context/userContext'
 import { changeFile, setSID } from "../State/action-creator";
 
 
@@ -15,6 +16,8 @@ const TaskItem = (props) => {
     const dispatch = useDispatch()
     const [status, setStatus] = useState(0)
     const [bar, setBar] = useState("invisible")
+    const context = useContext(userContext)
+    const {getaiques} = context
 
 
     const handleDOCChange = (event) => {
@@ -64,7 +67,7 @@ const TaskItem = (props) => {
                     if(localStorage.getItem("Docschat_msg")){
                         localStorage.removeItem("Docschat_msg")
                     }
-                    localStorage.setItem("Docschat_msg",JSON.stringify([{sid:Sid, message:`Welcome to the ${btnRef} Chat System`}]))
+                    localStorage.setItem("Docschat_msg",JSON.stringify([{sid:Sid, message:`I am ready with your  ${btnRef} file `}]))
             
                     const formData = new FormData();
                     formData.append('file', pdfFile);
@@ -80,6 +83,7 @@ const TaskItem = (props) => {
                         if(ans.success){
                             dispatch(setSID(Sid,()=>{
                                 localStorage.setItem("Docschat_sid", Sid);
+                                getaiques(Sid)
                             }));
                             dispatch(changeFile(btnRef, () => { 
                                 localStorage.setItem("Docschat_type", btnRef);
@@ -106,29 +110,6 @@ const TaskItem = (props) => {
     };
   return (
     <div className='my-3 pt-4' id='task'>
-        {/* <div className={`card text-${text} bg-${bg} mb-3 mx-1`}>
-                <img src={require(`../Assets/${imgSrc}`)} className="card-img-top" alt="altpdf"/>
-                <div className="card-body">
-                    <center><h5 className="card-title">{taskName}</h5>
-                    <p style={{width:'80px',height:'2px',backgroundColor:'black'}}></p>
-                    </center>
-                    
-                    <p className="card-text">
-                        <strong>What I can do</strong>
-                        <ul>
-                            {ol.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </ul>
-                    </p> 
-                    <form encType='multipart/form-data' onSubmit={ submitDOC } className='form form-control-sm'>
-                        <input type="file" name='file' accept={`.${btnRef}`} onChange={ handleDOCChange }/>
-                        <span className={loader} role="status" aria-hidden="true"></span>
-                        <input type="submit" value="Submit" className={`btn btn-${btnClass} btn-sm`} disabled={disable} />           
-                    </form>
-                    <center><p style={{fontSize:'12px'}}>{status}</p></center> 
-                </div>
-            </div> */}
             <div className='box'>
                 <div className='row'>
                     <div className='image-container'>

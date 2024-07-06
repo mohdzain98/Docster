@@ -26,3 +26,19 @@ def chain(retriever, llm):
     )
 
     return chain
+
+def qchain(llm):
+    template = """Generate Two keywords from the given context:
+    {context}
+    """
+    template_S = "You are a helpful assistant that performs information retrieval from the provided document."
+    system_message_prompt = SystemMessagePromptTemplate.from_template(template_S)
+    prompt = ChatPromptTemplate.from_messages([system_message_prompt,template])
+    chain = (
+        {"context": RunnablePassthrough()}
+        | prompt
+        | llm
+        | StrOutputParser()
+    )
+
+    return chain

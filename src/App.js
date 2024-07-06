@@ -28,7 +28,7 @@ function App() {
   const sid = useSelector(state => state.sid)
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
-  
+ 
   useEffect(()=>{
     if(localStorage.getItem('token')){
       setLogin(false)
@@ -56,7 +56,7 @@ function App() {
   return (
     <>
     <div>
-    <UserState host={{host, showAlert}}>
+    <UserState host={{host,llm_host, showAlert}}>
     <Router>
     <Scrooltotop/>
     <Navbar prop={{host,Logdin,showAlert}}/>

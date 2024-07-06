@@ -4,15 +4,17 @@ import ChatElement from './ChatElement';
 import { useNavigate } from 'react-router';
 import userContext from '../Context/userContext'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router';
 
 
 const Chatbox = (props) => {
     const {showAlert, llm_host} = props.prop
     const context = useContext(userContext)
-    const {updateToken, checkUser} = context
+    const {updateToken, checkUser, aiques} = context
     const [comment, setComment] = useState("");
     const [chats, setChats] = useState([{message:"Welcome to the Chat System"}]);
     const navigate = useNavigate()
+    const location = useLocation();
     const [loader,setLoader] = useState("")
     const [disable,setDisbale] = useState(false)
     const [btn,setBtn] = useState("Enter")
@@ -20,7 +22,6 @@ const Chatbox = (props) => {
     const chatEndRef = useRef(null);
     const type = useSelector(state => state.type)
     const sid = useSelector(state => state.sid)
-
 
     useEffect(()=>{
       if(localStorage.getItem("Docschat_msg")){
@@ -122,7 +123,11 @@ const Chatbox = (props) => {
   return (
     <>
     <div className='container mx-10' style={{marginTop:'-50px'}}>
-      <div className="chatSection">
+      <div style={{visibility:location.pathname ==="/chat/default/default"?"hidden":"visible"}}>
+        <p><strong>Keywords</strong> {aiques.result}</p>
+      </div>
+      <hr/>
+      <div className="chatSection"style={{marginTop:'-1%'}}>
         {Object.keys(chats).length>0?chats.map((element,index) => {
             return (
               <>

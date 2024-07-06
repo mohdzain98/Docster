@@ -2,9 +2,10 @@ import React,{useState} from 'react'
 import UserContext from '../Context/userContext'
 
 const UserState = (props) => {
-    const {host,showAlert}= props.host
+    const {host,llm_host,showAlert}= props.host
     const [user,setUser] = useState("")
     const [token, setToken] = useState("")
+    const [aiques, setAiques] = useState("")
 
     const getUser = async ()=>{
       try{
@@ -142,9 +143,21 @@ const UserState = (props) => {
       }
     }
 
+    const getaiques = async(sid)=>{
+      try{
+        const response = await fetch(`${llm_host}/getques/${sid}`,{
+          method:'GET'
+        })
+        const reply = await response.json()
+        setAiques(reply)
+      }catch(err){
+        setAiques(err)
+      }
+    }
+
   return (
     <div>
-      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact}}>
+      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact, aiques, getaiques}}>
             {props.children}
         </UserContext.Provider>
     </div>
