@@ -25,7 +25,7 @@ const tasks=[
         imgSrc:'csv.png',
         text:'white',
         bg:'danger',
-        ol:['Q and A on CSV File','Find key points from CSV','Perfomrm calculations on CSV'],
+        ol:['Q and A on CSV File','Find key points from CSV','Perform calculations on CSV'],
         type:"text/csv",
         btnHref:'csv',
         btnClass:'success'
