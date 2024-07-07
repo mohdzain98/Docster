@@ -180,7 +180,7 @@ class Initsql:
             Free.doFree(f'tmp/{name}.sql')
 
     def initret(self):
-        return self.ready,self.cToken, self.file, self.name
+        return self.ready,self.file, self.name
     
 
 class Initppt:

@@ -123,7 +123,7 @@ const Chatbox = (props) => {
   return (
     <>
     <div className='container mx-10' style={{marginTop:'-50px'}}>
-      <div style={{visibility:location.pathname ==="/chat/default/default"?"hidden":"visible"}}>
+      <div style={{visibility:location.pathname ==="/chat/default/default" || type === 'sql'?"hidden":"visible"}}>
         <p><strong>Keywords</strong> {aiques.result}</p>
       </div>
       <hr/>

@@ -131,10 +131,9 @@ def uploaded(file_type,sid):
         if(upload):
             file = Initsql()
             file.initdb(file_type,name)
-            ready,cToken,go,name = file.initret()
+            ready,go,name = file.initret()
             if(ready):
                 redis_client.hset(sid, 'go', go)
-                redis_client.hset(sid, 'cToken', cToken)
                 redis_client.hset(sid, 'name',name)
             else:
                 return jsonify({"success":False,"msg":"File Size larger then 5000 tokens"})
@@ -195,9 +194,9 @@ def aiques(sid):
     q_chain = qchain(llm)
     ques = q_chain.invoke(content)
     res = jsonify({"result":ques})
-    return (res)
-
-
+    return res
+        
+    
 @app.route('/chat/pdf/<sid>', methods=['POST', 'GET'])
 def chatpdf(sid):
     req = request.json
@@ -289,7 +288,6 @@ def chatsql(sid):
     try:
         go = int(redis_client.hget(sid, 'go'))
         name = redis_client.hget(sid, 'name').decode()
-        cToken = int(redis_client.hget(sid, 'cToken'))
         if go==1:
             db = SQLDatabase.from_uri(f'sqlite:///db/{name}.db')
             execute_query = QuerySQLDataBaseTool(db=db)
@@ -310,11 +308,12 @@ def chatsql(sid):
                 )
                 | answer
             )
-            result = chain.invoke({"question": ques})
-            gToken = len(result.split())
-            return jsonify({"result":result,"cToken":cToken,"gToken":gToken,"total":cToken+gToken})
+            with get_openai_callback() as cb:
+                result = chain.invoke({"question": ques})
+            total = cb.prompt_tokens + cb.completion_tokens
+            return jsonify({"result":result,"cToken":cb.prompt_tokens,"gToken":cb.completion_tokens,"total":total})
     except Exception as e:
-        return jsonify({"result":"Some Error Occurred, Try with some other question","cToken":0,"gToken":0,"total":0})
+        return jsonify({"result":"Some Error Occurred, Try with some other question","cToken":1,"gToken":1,"total":1})
             
 
  

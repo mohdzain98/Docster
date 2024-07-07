@@ -83,7 +83,9 @@ const TaskItem = (props) => {
                         if(ans.success){
                             dispatch(setSID(Sid,()=>{
                                 localStorage.setItem("Docschat_sid", Sid);
-                                getaiques(Sid)
+                                if(btnRef !== 'sql'){
+                                    getaiques(Sid)
+                                }
                             }));
                             dispatch(changeFile(btnRef, () => { 
                                 localStorage.setItem("Docschat_type", btnRef);
