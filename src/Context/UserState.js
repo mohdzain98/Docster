@@ -154,10 +154,29 @@ const UserState = (props) => {
         setAiques(err)
       }
     }
+    const getsqlques = async(sid)=>{
+      try{
+        const reply = await fetch(`${llm_host}/chat/sql/${sid}`,{
+          method:'POST',
+          headers: {
+            "Content-Type": "application/json",
+          }, 
+          body: JSON.stringify({query:'What are the Tables ?'})
+        })
+        if(reply.status === 200){
+          const json = await reply.json()
+          setAiques(json)
+        }else{
+          setAiques('tables not found')
+        }
+      }catch(err){
+        setAiques(err)
+      }
+    }
 
   return (
     <div>
-      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact, aiques, getaiques}}>
+      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact, aiques, getaiques, getsqlques}}>
             {props.children}
         </UserContext.Provider>
     </div>

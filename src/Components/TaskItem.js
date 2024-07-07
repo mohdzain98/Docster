@@ -17,7 +17,7 @@ const TaskItem = (props) => {
     const [status, setStatus] = useState(0)
     const [bar, setBar] = useState("invisible")
     const context = useContext(userContext)
-    const {getaiques} = context
+    const {getaiques, getsqlques} = context
 
 
     const handleDOCChange = (event) => {
@@ -85,6 +85,8 @@ const TaskItem = (props) => {
                                 localStorage.setItem("Docschat_sid", Sid);
                                 if(btnRef !== 'sql'){
                                     getaiques(Sid)
+                                }else{
+                                    getsqlques(Sid)
                                 }
                             }));
                             dispatch(changeFile(btnRef, () => { 
