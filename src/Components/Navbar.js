@@ -134,6 +134,9 @@ const Navbar = (props) => {
                         <Link className={`nav-link ${location.pathname === "/about"?"active":""}`} aria-current="page" to="/about" onClick={rollNavBack}>About</Link>
                         </li>
                         <li className="nav-item">
+                        <Link className={`nav-link ${location.pathname === "/product" || location.pathname === '/product/surfmind'?"active":""}`} aria-current="page" to="/product" onClick={rollNavBack}>Product</Link>
+                        </li>
+                        <li className="nav-item">
                         <Link className={`nav-link ${location.pathname === "/pricing"?"active":""}`} aria-current="page" to="/pricing" onClick={rollNavBack}>Pricing</Link>
                         </li>
                         <li className="nav-item">

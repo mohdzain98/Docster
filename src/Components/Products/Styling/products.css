@@ -1,0 +1,48 @@
+#products{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    row-gap: 10px;
+    column-gap: 90px;
+    width: auto;
+    justify-content: center;
+    align-items: baseline;
+    margin-top: -3%;
+}
+
+#products .box{
+    position: relative;
+    /* background: linear-gradient(90deg, rgb(211, 245, 247) 0%, rgb(166, 223, 245) 35%, rgb(195, 247, 238) 100%); */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #surfmind .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+#surfmind {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    row-gap: 10px;
+    column-gap: 50px;
+}
+#surfmind h1{
+    letter-spacing: 1px;
+}
+#surfmind p {
+    margin: 10px 0;
+}
+
+#surfmind ul li{
+    margin: 15px 0;
+}

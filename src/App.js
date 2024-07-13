@@ -20,6 +20,8 @@ import Terms from './Components/Terms';
 import Cookies from './Components/Cookies';
 import Scrooltotop from './Components/Scrooltotop';
 import Upcoming from './Components/Upcoming';
+import Products from './Components/Products/Products';
+import Surfmind from './Components/Products/Surfmind';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -76,6 +78,8 @@ function App() {
         <Route exact path='/in/terms' element={<Terms />}></Route>
         <Route exact path='/upcomings' element={<Upcoming />}></Route>
         <Route exact path='/forgot-password' element={<Forgot prop={{host, showAlert}} />}></Route>
+        <Route exact path='/product' element={<Products />}></Route>
+        <Route exact path='/product/surfmind' element={<Surfmind />}></Route>
     </Routes>
     <Cookies/>
     </Router>
