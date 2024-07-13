@@ -49,7 +49,7 @@ const Surfmind = () => {
         <hr className='text-success'/>
         <ul>
             <li><strong>Automatic Website Tracking</strong> : Effortlessly logs every website you visit, along with key content, ensuring you never lose track of important information</li>
-            <li><strong>AI-Powered Search</strong> : Utilize powerful AI models to search your browsing history by topic. Simply ask SurfLog about the websites you've visited related to specific topics, and it will quickly retrieve relevant results</li>
+            <li><strong>AI-Powered Search</strong> : Utilize powerful AI models to search your browsing history by topic. Simply ask SurfMind about the websites you've visited related to specific topics, and it will quickly retrieve relevant results</li>
             <li><strong>Local Data Storage</strong> : Keeps your data securely stored locally on your device, ensuring privacy and security. Data is only sent to the server when you initiate a search, reducing server load and enhancing performance</li>
             <li><strong>Efficient Data Management</strong> : Automatically manages and maintains your browsing history, keeping only the most recent and relevant data to avoid unnecessary storage buildup</li>
             <li><strong>User-Friendly Interface</strong> : Features an intuitive and responsive interface built with React and Bootstrap, making it easy to view and search your browsing history.</li>
@@ -57,8 +57,8 @@ const Surfmind = () => {
         <h5 className='mt-4 text-danger'>How It Works ? </h5>
         <hr className='text-danger'/>
         <ul>
-            <li><strong>Tracking and Storage</strong> : As you browse, SurfLog tracks the websites you visit and stores the data locally in your browser's storage</li>
-            <li><strong>Data Ingestion</strong> :  When you perform a search, SurfLog ingests the locally stored data and sends it to the server for processing</li>
+            <li><strong>Tracking and Storage</strong> : As you browse, SurfMind tracks the websites you visit and stores the data locally in your browser's storage</li>
+            <li><strong>Data Ingestion</strong> :  When you perform a search, SurfMind ingests the locally stored data and sends it to the server for processing</li>
             <li><strong>AI-Driven Search</strong> : The server utilizes advanced AI models to analyze and retrieve the most relevant websites based on your search query</li>
             <li><strong>Efficient Retrieval</strong> : Results are promptly returned to you, providing a comprehensive overview of your browsing history related to your query</li>
         </ul>
