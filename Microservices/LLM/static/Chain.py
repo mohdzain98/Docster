@@ -4,6 +4,9 @@ from langchain.prompts.chat import (
     ChatPromptTemplate,
     SystemMessagePromptTemplate,
 )
+from langchain_core.prompts import PromptTemplate
+from langchain_core.runnables import RunnableParallel
+from langchain_exa import ExaSearchRetriever, TextContentsOptions
 
 
 def chain(retriever, llm):
@@ -41,4 +44,22 @@ def qchain(llm):
         | StrOutputParser()
     )
 
+    return chain
+
+def exaSearch(llm):
+    retriever = ExaSearchRetriever(
+        k=2, text_contents_options=TextContentsOptions(max_characters=200)
+    )
+    prompt = PromptTemplate.from_template(
+        """Answer the following query based on the following context:
+    query: {query}
+    <context>
+    {context}
+    </context"""
+    )
+    chain = (
+        RunnableParallel({"context": retriever, "query": RunnablePassthrough()})
+        | prompt
+        | llm
+    )
     return chain
