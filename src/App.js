@@ -19,9 +19,12 @@ import Forgot from './Components/Forgot';
 import Terms from './Components/Terms';
 import Cookies from './Components/Cookies';
 import Scrooltotop from './Components/Scrooltotop';
-import Upcoming from './Components/Upcoming';
 import Products from './Components/Products/Products';
 import Surfmind from './Components/Products/Surfmind';
+import Exa from './Components/Tools/Exa';
+import Trends from './Components/Tools/Trends';
+import Scholar from './Components/Tools/Scholar';
+import Pubmed from './Components/Tools/Pubmed';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -30,7 +33,9 @@ function App() {
   const sid = useSelector(state => state.sid)
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
- 
+  const tool_host = process.env.REACT_APP_TOOL_HOST
+  console.log(tool_host)
+
   useEffect(()=>{
     if(localStorage.getItem('token')){
       setLogin(false)
@@ -67,7 +72,6 @@ function App() {
         <Route exact path="/" element={<Home prop={{host, showAlert, Logdin, Logdout, login, llm_host}}/>}></Route>
         <Route exact path='/login' element={<Login prop={{host, showAlert, Logdout}}/>}></Route>
         <Route exact path='/signup' element={<Signup prop={{host, showAlert, Logdout}}/>}></Route>
-        <Route exact path='/chat/default' element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
         <Route exact path={`/chat/${type}/${sid}`} element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
         <Route exact path='/visitors' element={<Visitor/>}></Route>
         <Route exact path='/contactus' element={<Contact prop={{showAlert}}/>}></Route>
@@ -76,10 +80,13 @@ function App() {
         <Route exact path='/pricing' element={<Pricing/>}></Route>
         <Route exact path='/faq' element={<Faq/>}></Route>
         <Route exact path='/in/terms' element={<Terms />}></Route>
-        <Route exact path='/upcomings' element={<Upcoming />}></Route>
         <Route exact path='/forgot-password' element={<Forgot prop={{host, showAlert}} />}></Route>
         <Route exact path='/product' element={<Products />}></Route>
         <Route exact path='/product/surfmind' element={<Surfmind />}></Route>
+        <Route exact path='/tools/exa' element={<Exa prop={{tool_host, showAlert}}/>}></Route>
+        <Route exact path='/tools/trends' element={<Trends prop={{tool_host, showAlert}}/>}></Route>
+        <Route exact path='/tools/scholar' element={<Scholar prop={{tool_host, showAlert}}/>}></Route>
+        <Route exact path='/tools/pubmed' element={<Pubmed prop={{tool_host, showAlert}}/>}></Route>
     </Routes>
     <Cookies/>
     </Router>

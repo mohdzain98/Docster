@@ -1,0 +1,39 @@
+#tool .box{
+    width: auto;
+    position: relative;
+    background: rgb(255,255,255);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    border: groove 1px;
+}
+#tool .text{
+    color: #2a201c;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  
+#tool .underline{
+    width: 130px;
+    height:6px;
+    background: #2a201c;
+    border-radius: 9px;
+}
+
+#tool .box:hover{
+    border:solid 1px;
+    cursor: pointer;
+}
+
+.sresult{
+    padding: 2%;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 2% 0;
+}
+
+nav .breadcrumb ul li{
+    font-size: 14px;
+}

@@ -19,7 +19,7 @@ const About = () => {
         
         <h2 className='mt-4 text-success'>What is Docschat?</h2>
         <hr className='text-success'/>
-        <p>Docschat is an innovative application designed to facilitate seamless communication with documents. By leveraging the power of LLMs, Docschat  provides an intuitive interface for querying and interacting with documents such as PDFs, TXT files, CSVs, Excel spreadsheets, Powerpoint, Word files  and SQL databases.</p>
+        <p>Docschat is an innovative application designed to facilitate seamless communication with documents. By leveraging the power of LLMs, Docschat  provides an intuitive interface for querying and interacting with documents such as PDFs, TXT files, CSVs, Excel spreadsheets, Powerpoint, Word files  and SQL databases. Additionally, it incorporates advanced tools for content retrieval.</p>
         
         <h2 className='mt-4 text-black-50'>Features</h2>
         <hr className='text-black-50'/>
@@ -40,6 +40,16 @@ const About = () => {
             <li><strong>CSV and Excel Files : </strong>Perform statistical calculations and data analysis</li>
             <li><strong>PPT and Word Files : </strong>Able to find out insights in these files.</li>
             <li><strong>SQL Files : </strong>Write and execute queries to retrieve and manipulate data, providing desired results</li>
+        </ul>
+
+        <h2 className='mt-4 text-success'>Tools</h2>
+        <hr className='text-success'/>
+        <p>Docschat contains advanced tools for content retrieval tasks.</p>
+        <ul>
+            <li><strong>Exa Search : </strong>Exa is search engine designed for LLMs to retrieve relevant informations from queries.</li>
+            <li><strong>Google Trends : </strong>This tool finds trending searches from google about any topic. This tool uses SerpApi in backend.</li>
+            <li><strong>Google Scholar : </strong>This tool find relevant scholarly article as it sees content of article and finds how much it is similar to the query.</li>
+            <li><strong>PubMed : </strong>This tool finds citation related to Biomedical Literature.</li>
         </ul>
         
         <h2 className='mt-4 text-info'>Team</h2>

@@ -16,6 +16,7 @@ const Products = () => {
             <hr/>
             <p className='text-muted'>SurfMind is a cutting-edge Chrome extension designed to enhance your browsing experience by intelligently tracking and managing the websites you visit.</p>
             <Link to={'/product/surfmind'}><button type="button" class="btn btn-outline-primary">See More</button></Link>
+            <Link to={'https://chromewebstore.google.com/detail/surfmind/ladckalplikfcplbihpgfnlkonnpehkj'} target='_blank' rel='noopener noreferrer'><button type="button" class="btn btn-outline-primary mx-2">Add To Chrome</button></Link>
         </div>
     </div>
   )

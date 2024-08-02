@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../Styling/footer.css'
-import { useMediaQuery } from 'react-responsive'
 
 const Footer = (props) => {
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     const [thumbs, setThumbs] = useState(localStorage.getItem('thumbs') || 'regular')
     const [info, setInfo] = useState("")
     const {host} = props.prop
@@ -45,8 +43,6 @@ const Footer = (props) => {
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Feedback</Link></button></li>
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/contactus'} style={{textDecoration:'none', color:'black'}}>Report an Issue</Link></button></li>
                         <li className='list-inline-item'><button className='btn btn-default'><Link to={'/faq'} style={{textDecoration:'none', color:'black'}}>FAQs</Link></button></li>
-                        <li className='list-inline-item'><button className='btn btn-default'><Link to={'/upcomings'} style={{textDecoration:'none', color:'black'}}>Upcoming Features</Link></button></li>
-                        
                     </ul>
                 </div>
                 <hr/>
@@ -59,11 +55,11 @@ const Footer = (props) => {
     </div>
     <div className='text-white bg-dark pt-3'>
         <div className="container" id='copy'>
-            <div style={isTabletOrMobile?{marginTop:'-2%'}:{}}>
-                <p className='text-center' > &copy; 2024 Docschat</p>
+            <div>
+                <p className='text-center' style={{fontSize:'14px'}}> &copy; 2024 Docschat</p>
             </div>
-            <div style={isTabletOrMobile?{marginTop:'-3%'}:{}}>
-                <p className='text-center'>Updated on : 13 July, 2024  V: 1.5</p>
+            <div>
+                <p className='text-center' style={{fontSize:'14px'}}>Updated on : 13 July, 2024  V: 1.5</p>
             </div>
         </div>
     </div>

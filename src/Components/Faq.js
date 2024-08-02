@@ -55,6 +55,16 @@ const Faq = () => {
                 <div className="accordion-body">We do not collect and process the data contained in these documents neither we store your document to our servers , rather we convert the content in vector store which can only be understand by Large Language Model to provide you with our services.</div>
                 </div>
             </div>
+            <div className="accordion-item">
+                <h2 className="accordion-header" id="flush-headingFour">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Does Login required to use Tools
+                </button>
+                </h2>
+                <div id="flush-collapseFour" className="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                <div className="accordion-body">No login is not required for using tools. Anyone can use tools directly</div>
+                </div>
+            </div>
         </div>
         <hr className='mt-4' style={{color:'black',height:'2px'}}/>
         <p className='lead'>For any other question kindly: <mark><Link to='/contactus' style={{textDecoration:'none', color:'black'}}>Contact Us</Link></mark></p>

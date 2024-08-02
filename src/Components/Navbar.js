@@ -4,6 +4,7 @@ import userContext from '../Context/userContext'
 import { useMediaQuery } from 'react-responsive'
 import { useDispatch } from 'react-redux'
 import { changeFile, setSID } from '../State/action-creator'
+import { Link as ScrollLink } from 'react-scroll';
 
 const Navbar = (props) => {
     const {host,Logdin,showAlert} = props.prop
@@ -127,9 +128,27 @@ const Navbar = (props) => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                        <Link className={`nav-link ${location.pathname === "/"?"active":""}`} aria-current="page" to="/" onClick={rollNavBack}>Home</Link>
-                        </li>
+                        {location.pathname === "/"?
+                            <li class="nav-item dropdown">
+                                {/* <Link className={`nav-link dropdown-toggle ${location.pathname === "/"?"active":""}`} id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Home</Link> */}
+
+                                <a class={`nav-link dropdown-toggle ${location.pathname === "/"?"active":""}`} href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Home
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><ScrollLink className='dropdown-item' to='task' smooth={true} duration={50} onClick={rollNavBack} style={{cursor:'pointer'}}>
+                                    Documents
+                                </ScrollLink></li>
+                                <li><ScrollLink className='dropdown-item' to='tool' smooth={true} duration={50} onClick={rollNavBack} style={{cursor:'pointer'}}>
+                                    Tools
+                                </ScrollLink></li>
+                                </ul>
+                            </li>
+                            :
+                            <li className="nav-item">
+                                <Link className={`nav-link ${location.pathname === "/"?"active":""}`} aria-current="page" to="/" onClick={rollNavBack}>Home</Link>
+                            </li>
+                        }
                         <li className="nav-item">
                         <Link className={`nav-link ${location.pathname === "/about"?"active":""}`} aria-current="page" to="/about" onClick={rollNavBack}>About</Link>
                         </li>
