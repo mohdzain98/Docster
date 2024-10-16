@@ -27,7 +27,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 status = "active"
 os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
-llm = ChatOpenAI(max_tokens=500)
+llm = ChatOpenAI(model='gpt-4o-mini',max_tokens=500)
 
 redis_host = os.getenv('REDIS_HOST')
 redis_port = os.getenv('REDIS_PORT')
