@@ -43,4 +43,5 @@ DocsChat is built using a microservices architecture, with two primary microserv
   - Processes user queries and interacts with various document types
   - Leverages advanced language models to understand and respond to user inputs
   - Performs text extraction, data analysis, and SQL query execution based on document type
-  
+- ### Tools Service
+  Separate service for content retrieval tools.
