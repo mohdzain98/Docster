@@ -18,11 +18,9 @@ const Contact = (props) => {
 
     const issueChange = (e)=>{
         setIssue({...issue, [e.target.name]:e.target.value})
-        console.log(issue)
     }
     const fbChange = (e)=>{
         setFb({...fb, [e.target.name]:e.target.value})
-        console.log(fb)
     }
 
     const handleIssue =async (e)=>{
@@ -34,7 +32,6 @@ const Contact = (props) => {
               `
         const send = await contact("An issue is Raised",body, to)
         if(send.success){
-            console.log('send',send)
             showAlert('Message sent successfully','primary')
             setIssue({email:"",text:""})
         }else{
