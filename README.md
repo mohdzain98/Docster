@@ -16,6 +16,12 @@ Docschat is an innovative project designed to revolutionize how users interact w
 - Word
 - SQL
 
+## Tools
+- Exa Search : Exa is search engine designed for LLMs to retrieve relevant informations from queries.
+- Google Trends : This tool finds trending searches from google about any topic. This tool uses SerpApi in backend.
+- Google Scholar : This tool find relevant scholarly article as it sees content of article and finds how much it is similar to the query.
+- PubMed : This tool finds citation related to Biomedical Literature.
+
 ## Working
 - Login in the website
 - Upload the required document
