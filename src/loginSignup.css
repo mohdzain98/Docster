@@ -85,9 +85,11 @@
   
   .submit-container{
     display: flex;
-    gap: 10px;
+    gap: 15px;
     margin: 10px auto;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 
   .ssubmit-container{

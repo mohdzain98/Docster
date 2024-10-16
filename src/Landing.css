@@ -39,6 +39,8 @@ section{
     font-weight: lighter;
     line-height: 1.8;
     padding: 1.1rem 0;
+    text-align: justify;
+
 }
 .home .content .title span{
     color: #d3ad7f;

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../Styling/terms.css'
 
 const Terms = () => {
   return (
-    <div className='container pb-4' style={{padding:'0 5%',marginTop:'-3%'}}>
+    <div className='container pb-4' style={{padding:'0 5%',marginTop:'-3%'}} id='terms'>
         <center><h1 className='mb-4 fw-bold'>Terms of Service</h1></center>
         <p className='text-end' style={{fontSize:'12px'}}><strong>Effective Date: </strong>21 June, 2024</p>
         <p className='text-end' style={{marginTop:'-12px',fontSize:'12px'}}><strong>Country: </strong>India<Link style={{textDecoration:'none'}}></Link></p>

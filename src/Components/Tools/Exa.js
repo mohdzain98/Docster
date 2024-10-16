@@ -33,7 +33,7 @@ const  Exa = (props) => {
                 <div className='sresult'>
                     <center><h5>Exa Search Result</h5></center>
                     <p>Here are some fascinating facts about cats:</p>
-                    <ul>
+                    <ul id='exali'>
                         <li><strong>Sleeping Habits:</strong> Cats spend about 70% of their lives sleeping, which means a nine-year-old cat has only been awake for about three years of its life.</li>
                         <li><strong>Unique Communication: </strong>Cats primarily meow to communicate with humans, while they use body language to communicate with each other.</li>
                         <li><strong>Sense of Smell: </strong>A cat's sense of smell is approximately 14 times greater than that of a human, allowing them to detect scents that we cannot.</li>
