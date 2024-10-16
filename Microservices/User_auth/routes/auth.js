@@ -10,6 +10,7 @@ require('dotenv').config()
 
 
 const JWT_SECRET = process.env.REACT_APP_JWTS
+const SEC_KEY = process.env.REACT_APP_SECRET_KEY
 
 router.post('/existuser',async(req,res)=>{
     let success = true;
@@ -132,6 +133,26 @@ router.post('/glogin', async (req,res) => {
         res.json({success, authToken})
     }catch(error){
         res.status(500).send("Internal server occured")
+    }
+})
+
+router.post('/checkcaptcha',async(req,res)=>{
+    let stat = false
+    const {token} = req.body
+    if (!token) {
+        return res.status(400).json({stat, msg: "No token provided" });
+    }
+    try{
+        const resp = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${SEC_KEY}&response=${token}`,{ method: "POST" })
+        const data = await resp.json();
+        if (data.success) {
+            stat=true
+            res.status(200).json({stat,msg:'captcha verified successfully'});
+        } else {
+            res.status(400).json({stat,msg:'Not a Human, error verifying Captcha'})
+        }
+    }catch(error){
+        res.status(500).json({stat,msg:'Some Error Occurred verifying captcha'})
     }
 })
 
