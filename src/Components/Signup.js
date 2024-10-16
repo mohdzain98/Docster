@@ -8,14 +8,15 @@ import passpic from '../Assets/password.png'
 import person from '../Assets/person.png'
 import GoogleButton from 'react-google-button'
 import mail from '../mails'
+import ReCAPTCHA from "react-google-recaptcha"
 
 
 const Signup = (props) => {
   const [cred, setCred] = useState({name:"", email:"", password:"", cpassword:""})
     const navigate = useNavigate()
     const context = useContext(userContext)
-    const {getUser, getToken, sendEmail, verifyEmail, contact} = context
-    const {host,showAlert, Logdout} = props.prop
+    const {getUser, getToken, sendEmail, verifyEmail, contact, verifyCaptcha} = context
+    const {host,showAlert, Logdout, sitekey} = props.prop
     const [loader,setLoader] = useState("")
     const [mloader, setMloader] = useState("")
     const otpModal = useRef(null)
@@ -24,6 +25,8 @@ const Signup = (props) => {
     const [valid, setValid] = useState("invisible")
     const [resendbtn, setResendbtn] = useState({val:true,color:'black'})
     const [cdown, setCdown] = useState(60)
+    const [captcha, setCaptcha] = useState(false)
+    const captchaRef = useRef(null)
 
     useEffect(()=>{
       if(localStorage.getItem('token')){
@@ -78,42 +81,50 @@ const Signup = (props) => {
         showAlert("Password and Confirm password does not match",'danger')
         setLoader("")
       }else{
-        const check = await fetch(`${host}/api/auth/existuser`,{
-          method:'POST',
-          headers: {
-            "Content-Type": "application/json",
-          }, 
-          body: JSON.stringify({email:email})
-        })
-        if(check.status === 500){
-          showAlert('Some Error Occurred','danger')
-          setLoader("")
-        }else{
-          const checkr = await check.json()
-          if(checkr.success){
-            showAlert('Email Already exist kindly Login','primary')
+        const token = captchaRef.current.getValue();
+        const reply = await verifyCaptcha(token)
+        if(reply.stat){
+          const check = await fetch(`${host}/api/auth/existuser`,{
+            method:'POST',
+            headers: {
+              "Content-Type": "application/json",
+            }, 
+            body: JSON.stringify({email:email})
+          })
+          if(check.status === 500){
+            showAlert('Some Error Occurred','danger')
             setLoader("")
           }else{
-            const reply = await sendEmail(name,email)
-            if(reply.success){
-              localStorage.setItem('otpID',reply.uid)
-              otpModal.current.click()
-              let timeLeft = 60; // 60 seconds
-              const countdown = setInterval(() => {
-                timeLeft--;
-                setCdown(timeLeft)
-                if (timeLeft <= 0) {
-                  clearInterval(countdown);
-                  setResendbtn({val:false,color:'blue'})
-                }
-              }, 1000); // 1000 milliseconds = 1 second
-
-            }else{
-              showAlert('Error Sending OTP, Try after some time','danger')
+            const checkr = await check.json()
+            if(checkr.success){
+              showAlert('Email Already exist kindly Login','primary')
               setLoader("")
+            }else{
+              const reply = await sendEmail(name,email)
+              if(reply.success){
+                localStorage.setItem('otpID',reply.uid)
+                otpModal.current.click()
+                let timeLeft = 60; // 60 seconds
+                const countdown = setInterval(() => {
+                  timeLeft--;
+                  setCdown(timeLeft)
+                  if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    setResendbtn({val:false,color:'blue'})
+                  }
+                }, 1000); // 1000 milliseconds = 1 second
+  
+              }else{
+                showAlert('Error Sending OTP, Try after some time','danger')
+                setLoader("")
+              }
             }
           }
+        }else{
+          showAlert(reply.msg,'danger')
         }
+        captchaRef.current.reset();
+        setCaptcha(false)
       }
     }
 
@@ -195,6 +206,9 @@ const Signup = (props) => {
         y.type = "password"
       }
     }
+    const captchaChange = ()=>{
+      setCaptcha(true)
+    }
   return (
     <>
       <div className='container' id='su' style={{marginTop:"-15px"}}>
@@ -226,7 +240,12 @@ const Signup = (props) => {
           </div> 
           <input className="me-1 my-3 ms-5" type="checkbox" onClick={showPassword}/>Show Password
           <div className="submit-container">
-          <button className="submit" type="submit" disabled={cred.name===""|| cred.email===""||cred.password===""||cred.cpassword===""}>
+          <ReCAPTCHA
+              sitekey={sitekey}
+              ref={captchaRef}
+              onChange={captchaChange}
+            />
+          <button className="submit" type="submit" disabled={cred.name===""|| cred.email===""||cred.password===""||cred.cpassword==="" || captcha === false}>
             Signup
           </button>
           </div>

@@ -143,6 +143,22 @@ const UserState = (props) => {
       }
     }
 
+    const verifyCaptcha = async(token)=>{
+      try{
+        const response = await fetch(`${host}/api/auth/checkcaptcha`,{
+          method:'POST',
+          headers:{
+            "Content-Type": "application/json"
+          },
+          body:JSON.stringify({token:token})
+        })
+        const reply = await response.json()
+        return reply
+      }catch(err){
+        showAlert('There is an Error Accessing Server','danger')
+      }
+    }
+
     const getaiques = async(sid)=>{
       try{
         const response = await fetch(`${llm_host}/getques/${sid}`,{
@@ -176,7 +192,7 @@ const UserState = (props) => {
 
   return (
     <div>
-      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact, aiques, getaiques, getsqlques}}>
+      <UserContext.Provider value={{user, getUser, token, getToken, updateToken, checkUser, sendEmail, verifyEmail,contact, aiques, getaiques, getsqlques,verifyCaptcha}}>
             {props.children}
         </UserContext.Provider>
     </div>

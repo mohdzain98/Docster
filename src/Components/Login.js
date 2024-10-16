@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect,useRef } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
 import { useGoogleLogin} from '@react-oauth/google';
 import '../loginSignup.css';
@@ -6,6 +6,7 @@ import userContext from '../Context/userContext'
 import emailpic from '../Assets/email.png'
 import passpic from '../Assets/password.png'
 import GoogleButton from 'react-google-button'
+import ReCAPTCHA from "react-google-recaptcha"
 // import { useMediaQuery } from 'react-responsive'
 
 
@@ -14,11 +15,13 @@ const Login = (props) => {
   const [cred, setCred] = useState({email:"", password:""})
   const navigate = useNavigate()
   const [loader,setLoader] = useState("")
-  const {host,showAlert, Logdout} = props.prop
+  const {host,showAlert, Logdout, sitekey} = props.prop
   const context = useContext(userContext)
-  const {getUser,getToken} = context
+  const {getUser,getToken, verifyCaptcha} = context
   const [gloader, setGLoader] = useState("");
   const [icon, setIcon] = useState("")
+  const [captcha, setCaptcha] = useState(false)
+  const captchaRef = useRef(null)
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -76,33 +79,45 @@ const Login = (props) => {
   const handleSubmit = async (e)=>{
       e.preventDefault();
       setLoader("spinner-border spinner-border-sm me-2")
+      const token = captchaRef.current.getValue();
       // showAlert('This will take time as Server is running on free version','primary')
-      const response = await fetch(`${host}/api/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          }, 
-          body: JSON.stringify({email: cred.email, password:cred.password})
-        });
-        if(response.status === 500){
-          showAlert("Internal Server Error Occurred","danger")
-          setLoader("")
-        }else{
-          const json = await response.json()
-          if(json.success){
-            //save the token and redirect
+      const reply = await verifyCaptcha(token)
+      if(reply.status === 500){
+         showAlert('There is an Error accessing Server','danger')
+      }else{
+        if(reply.stat){
+          const response = await fetch(`${host}/api/auth/login`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            }, 
+            body: JSON.stringify({email: cred.email, password:cred.password})
+          });
+          if(response.status === 500){
+            showAlert("Internal Server Error Occurred","danger")
             setLoader("")
-            localStorage.setItem('token', json.authToken)
-            navigate("/")
-            showAlert("Login Sucessfully","success")
-            getUser()
-            getToken()
-            Logdout()
           }else{
-            showAlert(json.errors,"danger")
-            setLoader("")
+            const json = await response.json()
+            if(json.success){
+              //save the token and redirect
+              setLoader("")
+              localStorage.setItem('token', json.authToken)
+              navigate("/")
+              showAlert("Login Sucessfully","success")
+              getUser()
+              getToken()
+              Logdout()
+            }else{
+              showAlert(json.errors,"danger")
+              setLoader("")
+            }
           }
+        }else{
+          showAlert(reply.msg,'danger')
         }
+      }
+      captchaRef.current.reset();
+      setCaptcha(false)
   }
   
   const showPassword =()=>{
@@ -121,6 +136,9 @@ const Login = (props) => {
   const onChange = (e)=>{
     setIcon("fa-eye-slash")
     setCred({...cred, [e.target.name]:e.target.value})
+  }
+  const captchaChange = ()=>{
+    setCaptcha(true)
   }
   return (
     <>
@@ -145,7 +163,12 @@ const Login = (props) => {
           </div> 
           <p className='mt-2 mb-4' style={{marginLeft:'35px'}}><Link to='/forgot-password' >forgot passsword?</Link></p>
           <div className="submit-container mt-4">
-          <button className="submit" type="submit" disabled={cred.email === "" || cred.password === ""}>
+            <ReCAPTCHA
+              sitekey={sitekey}
+              ref={captchaRef}
+              onChange={captchaChange}
+            />
+          <button className="submit" type="submit" disabled={cred.email === "" || cred.password === "" || captcha === false}>
             <span className={loader} role="status" aria-hidden="true"></span>
             Login
           </button>

@@ -34,7 +34,7 @@ function App() {
   const host = process.env.REACT_APP_HOST
   const llm_host = process.env.REACT_APP_LLM_HOST
   const tool_host = process.env.REACT_APP_TOOL_HOST
-  console.log(tool_host)
+  const sitekey = process.env.REACT_APP_SITE_KEY
 
   useEffect(()=>{
     if(localStorage.getItem('token')){
@@ -70,8 +70,8 @@ function App() {
     <Alert alert={alert}/>
     <Routes>
         <Route exact path="/" element={<Home prop={{host, showAlert, Logdin, Logdout, login, llm_host}}/>}></Route>
-        <Route exact path='/login' element={<Login prop={{host, showAlert, Logdout}}/>}></Route>
-        <Route exact path='/signup' element={<Signup prop={{host, showAlert, Logdout}}/>}></Route>
+        <Route exact path='/login' element={<Login prop={{host, showAlert, Logdout, sitekey}}/>}></Route>
+        <Route exact path='/signup' element={<Signup prop={{host, showAlert, Logdout, sitekey}}/>}></Route>
         <Route exact path={`/chat/${type}/${sid}`} element={<Chatbox prop={{host, showAlert, llm_host}}/>}></Route>
         <Route exact path='/visitors' element={<Visitor/>}></Route>
         <Route exact path='/contactus' element={<Contact prop={{showAlert}}/>}></Route>
