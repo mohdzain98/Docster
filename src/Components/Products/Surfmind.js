@@ -140,6 +140,9 @@ const Surfmind = () => {
             <hr className='text-secondary'/>
             <p>If you have any questions or concerns about this Privacy Policy, please contact us at </p>
             <a href='mailto:support@docschat.in'>support@docschat.in</a>
+
+            <hr/>
+            <p className='text-muted'>By using SurfMind, you acknowledge and agree to this Privacy Policy.</p>
         </div>}
     </div>
   )

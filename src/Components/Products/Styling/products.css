@@ -41,8 +41,15 @@
 }
 #surfmind p {
     margin: 10px 0;
+    text-align: justify;
 }
 
 #surfmind ul li{
     margin: 15px 0;
+    text-align: justify;
+}
+
+#surfmind #demoimg img{
+    height: 300px;
+    width: 512px;
 }

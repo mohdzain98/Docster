@@ -25,6 +25,7 @@ import Exa from './Components/Tools/Exa';
 import Trends from './Components/Tools/Trends';
 import Scholar from './Components/Tools/Scholar';
 import Pubmed from './Components/Tools/Pubmed';
+import Lexiclick from './Components/Products/Lexiclick';
 
 function App() {
   const [alert, setAlert] = useState(null)
@@ -83,6 +84,7 @@ function App() {
         <Route exact path='/forgot-password' element={<Forgot prop={{host, showAlert}} />}></Route>
         <Route exact path='/product' element={<Products />}></Route>
         <Route exact path='/product/surfmind' element={<Surfmind />}></Route>
+        <Route exact path='/product/lexiclick' element={<Lexiclick/>}></Route>
         <Route exact path='/tools/exa' element={<Exa prop={{tool_host, showAlert}}/>}></Route>
         <Route exact path='/tools/trends' element={<Trends prop={{tool_host, showAlert}}/>}></Route>
         <Route exact path='/tools/scholar' element={<Scholar prop={{tool_host, showAlert}}/>}></Route>

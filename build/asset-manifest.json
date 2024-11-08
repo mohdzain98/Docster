@@ -1,8 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.2fafde56.css",
-    "main.js": "/static/js/main.b6d73b18.js",
+    "main.css": "/static/css/main.82506e3a.css",
+    "main.js": "/static/js/main.74c4372f.js",
     "static/js/453.810479d2.chunk.js": "/static/js/453.810479d2.chunk.js",
+    "static/media/instant.png": "/static/media/instant.a21a19af9db20f81b80b.png",
+    "static/media/definition.png": "/static/media/definition.a0ae96bcbc38a5a4127d.png",
+    "static/media/aisearch.png": "/static/media/aisearch.eff690a84c8fde99fae5.png",
+    "static/media/examples.png": "/static/media/examples.ddf0b6c9ed4f46bf2cbb.png",
     "static/media/sql.png": "/static/media/sql.5baae78ca277d1b1ab87.png",
     "static/media/csv.png": "/static/media/csv.c4052dada1cd669b5780.png",
     "static/media/excel.png": "/static/media/excel.0acdcdcc5aac905561ce.png",
@@ -11,12 +15,12 @@
     "static/media/ppt.jpg": "/static/media/ppt.ac2c90ec56dbd32f0687.jpg",
     "static/media/word.jpg": "/static/media/word.b3d85d6207aec067c84d.jpg",
     "index.html": "/index.html",
-    "main.2fafde56.css.map": "/static/css/main.2fafde56.css.map",
-    "main.b6d73b18.js.map": "/static/js/main.b6d73b18.js.map",
+    "main.82506e3a.css.map": "/static/css/main.82506e3a.css.map",
+    "main.74c4372f.js.map": "/static/js/main.74c4372f.js.map",
     "453.810479d2.chunk.js.map": "/static/js/453.810479d2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2fafde56.css",
-    "static/js/main.b6d73b18.js"
+    "static/css/main.82506e3a.css",
+    "static/js/main.74c4372f.js"
   ]
 }
