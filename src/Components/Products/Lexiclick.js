@@ -63,11 +63,11 @@ const Lexiclick = () => {
         </ul>
         <h5 className='mt-4 text-dark'>Demonstration </h5>
         <hr className='text-dark'/>
-        <div id='demoimg' style={{display:'flex',flexWrap:'wrap',gap:'20px', justifyContent:'center'}}>
-            <img src={require('./Assets/lexiclick/instant.png')} alt='instant'/>
-            <img src={require('./Assets/lexiclick/definition.png')} alt='instant'/>
-            <img src={require('./Assets/lexiclick/examples.png')} alt='instant'/>
-            <img src={require('./Assets/lexiclick/aisearch.png')} alt='instant'/>
+        <div id='demoimg' className='row'>
+            <div className='col-md-6 col-xs-12 my-2'><img src={require('./Assets/lexiclick/instant.png')} alt='instant' className="img-fluid"/></div>
+            <div className='col-md-6 col-xs-12 my-2'><img src={require('./Assets/lexiclick/definition.png')} alt='instant' className="img-fluid"/></div>
+            <div className='col-md-6 col-xs-12 my-2'><img src={require('./Assets/lexiclick/examples.png')} alt='instant' className="img-fluid"/></div>
+            <div className='col-md-6 col-xs-12 my-2'><img src={require('./Assets/lexiclick/aisearch.png')} alt='instant' className="img-fluid"/></div>
         </div>
         <hr/>
         <p className='text-muted'>Transform the way you interact with language! Add LexiClick to Chrome and explore words with the power of AI.</p>

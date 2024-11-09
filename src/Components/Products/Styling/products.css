@@ -50,6 +50,5 @@
 }
 
 #surfmind #demoimg img{
-    height: 300px;
-    width: 512px;
+    image-rendering: auto;
 }

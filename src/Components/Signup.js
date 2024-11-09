@@ -219,37 +219,37 @@ const Signup = (props) => {
           <div className={loader} role="status"><span className="visually-hidden">Loading...</span></div>
         </div>
         <div className='box pb-3'>
-        <form onSubmit={verifyUser}>
-        <div className='inputs'>
-        <div className="input">
-              <img src={person} alt='email'/>
-              <input type="text" id="name" name='name' value={cred.name} onChange={onChange} placeholder='Name' required/>
-          </div>
-          <div className="input">
-              <img src={emailpic} alt='email'/>
-              <input type="email" id="email" name='email' value={cred.email} onChange={onChange} placeholder='Email' required/>
-          </div>
-          <div className="input">
-          <img src={passpic} alt='password'/>
-              <input type="password" id="password" name='password' value={cred.password} onChange={onChange} placeholder='Password' minLength={8} required/>
-          </div>
-          <div className="input">
-            <img src={passpic} alt='password'/>
-            <input type="password" placeholder='Confirm Password' id="cpassword" name='cpassword' onChange={onChange} value={cred.cpassword} minLength={8} required/>
-          </div>
-          </div> 
-          <input className="me-1 my-3 ms-5" type="checkbox" onClick={showPassword}/>Show Password
-          <div className="submit-container">
-          <ReCAPTCHA
-              sitekey={sitekey}
-              ref={captchaRef}
-              onChange={captchaChange}
-            />
-          <button className="submit" type="submit" disabled={cred.name===""|| cred.email===""||cred.password===""||cred.cpassword==="" || captcha === false}>
-            Signup
-          </button>
-          </div>
-        </form>
+          <form onSubmit={verifyUser}>
+            <div className='inputs'>
+              <div className="input">
+                <img src={person} alt='email'/>
+                <input type="text" id="name" name='name' value={cred.name} onChange={onChange} placeholder='Name' required/>
+              </div>
+              <div className="input">
+                <img src={emailpic} alt='email'/>
+                <input type="email" id="email" name='email' value={cred.email} onChange={onChange} placeholder='Email' required/>
+              </div>
+              <div className="input">
+                <img src={passpic} alt='password'/>
+                  <input type="password" id="password" name='password' value={cred.password} onChange={onChange} placeholder='Password' minLength={8} required/>
+              </div>
+              <div className="input">
+                <img src={passpic} alt='password'/>
+                <input type="password" placeholder='Confirm Password' id="cpassword" name='cpassword' onChange={onChange} value={cred.cpassword} minLength={8} required/>
+              </div>
+            </div> 
+            <input className="me-1 my-3 ms-5" type="checkbox" onClick={showPassword}/>Show Password
+            <div className="submit-container">
+            <ReCAPTCHA
+                sitekey={sitekey}
+                ref={captchaRef}
+                onChange={captchaChange}
+              />
+            <button className="submit" type="submit" disabled={cred.name===""|| cred.email===""||cred.password===""||cred.cpassword==="" || captcha === false}>
+              Signup
+            </button>
+            </div>
+          </form>
         </div>
         <div className='gs mt-4' style={{marginBottom: '5px'}}>
           <center><h4>OR</h4></center>

@@ -59,7 +59,7 @@ const Footer = (props) => {
                 <p className='text-center' style={{fontSize:'14px'}}> &copy; 2024 Docschat</p>
             </div>
             <div>
-                <p className='text-center' style={{fontSize:'14px'}}>Updated on : 16 oct, 2024  V: 1.7</p>
+                <p className='text-center' style={{fontSize:'14px'}}>Updated on : 09 Nov, 2024  V: 1.8</p>
             </div>
         </div>
     </div>
