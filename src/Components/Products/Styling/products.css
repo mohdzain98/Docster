@@ -52,3 +52,7 @@
 #surfmind #demoimg img{
     image-rendering: auto;
 }
+
+#products p{
+    text-align: justify;
+}
